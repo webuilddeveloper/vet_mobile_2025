@@ -1,0 +1,70 @@
+{
+  "project_info": {
+    "project_number": "828354674073",
+    "project_id": "vett-400e7",
+    "storage_bucket": "vett-400e7.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:828354674073:android:444fcac1b4851d3787a708",
+        "android_client_info": {
+          "package_name": "td.webuild.vet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "828354674073-igir497qqn2k58o3n7b37bokiubbaqoh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "td.webuild.vet",
+            "certificate_hash": "feb7f6fecc08344b4abfc2ae4c07a7e6b41bcc24"
+          }
+        },
+        {
+          "client_id": "828354674073-k1bdvrmivi1lqb5pj23oe2ll4qav0peh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "td.webuild.vet",
+            "certificate_hash": "5b9db0bc5c40d01ea77d7369c8c7b080df42ecd5"
+          }
+        },
+        {
+          "client_id": "828354674073-s1sojd8onq0pgvj57h3pkqksrcest96d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "td.webuild.vet",
+            "certificate_hash": "2e1237fda2635d45dcbf22a1e4d8c29b8b970680"
+          }
+        },
+        {
+          "client_id": "828354674073-nqlvbie977pk0qk8vga4onun30m9a3jo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCYXjfou6FwgYclG3JKKdoxmCSY9kPkI2o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "828354674073-nqlvbie977pk0qk8vga4onun30m9a3jo.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "828354674073-5f4ogf8r4ob1cfq6icb6ll4uaro0cd5g.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "td.webuild.vet"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

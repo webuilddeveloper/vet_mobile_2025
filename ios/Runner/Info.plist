@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CADisableMinimumFrameDurationOnPhone</key>
+	<true/>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleExecutable</key>
+	<string>$(EXECUTABLE_NAME)</string>
+	<key>CFBundleIdentifier</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>สัตวแพทยสภา</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.0.0</string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>GOOGLELoginAPI</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>line3rdp.$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+				<string>fb720247029896279</string>
+				<string>com.googleusercontent.apps.828354674073-5f4ogf8r4ob1cfq6icb6ll4uaro0cd5g</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>VetThaID</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>vet</string>
+			</array>
+		</dict>
+	</array>
+	<key>CFBundleVersion</key>
+	<string>1</string>
+	<key>FacebookAppID</key>
+	<string>720247029896279</string>
+	<key>FacebookClientToken</key>
+	<string>ba1c12fa9384e4fcf5d62d68bc108600</string>
+	<key>FacebookDisplayName</key>
+	<string>สัตวแพทยสภา</string>
+	<key>FirebaseAppDelegateProxyEnabled</key>
+	<false/>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>fbapi</string>
+		<string>fb-messenger-share-api</string>
+		<string>fbauth2</string>
+		<string>fbshareextension</string>
+		<string>lineauth2</string>
+	</array>
+	<key>LSRequiresIPhoneOS</key>
+	<true/>
+	<key>LineSDKConfig</key>
+	<dict>
+		<key>ChannelID</key>
+		<string>1655337910</string>
+	</dict>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>สัตวแพทยสภา Music Usage</string>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>สัตวแพทยสภา Bluetool Usage</string>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>สัตวแพทยสภา BluetoothPeripheral</string>
+	<key>NSCalendarsUsageDescription</key>
+	<string>สัตวแพทยสภา Calendar Usage</string>
+	<key>NSCameraUsageDescription</key>
+	<string>เพื่อแสดงรูปภาพโปรไฟล์ของคุณ</string>
+	<key>NSContactsUsageDescription</key>
+	<string>สัตวแพทยสภา ต้องการเข้าถึงข้อมูลการติดต่อของคุณ</string>
+	<key>NSFaceIDUsageDescription</key>
+	<string>สัตวแพทยสภา FaceID Usage</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>เพื่อแสดงตำแหน่งปัจจุบันของคุณ และแนะนำสถานที่น่าสนใจให้กับคุณ</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>เพื่อแสดงตำแหน่งปัจจุบันของคุณ และแนะนำสถานที่น่าสนใจให้กับคุณ</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>ใช้ตำแหน่งของคุณในแผนที่</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>สัตวแพทยสภา Microphone Usage</string>
+	<key>NSMotionUsageDescription</key>
+	<string>สัตวแพทยสภา Motion Usage</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>เพื่อแสดงรูปภาพโปรไฟล์ของคุณ</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>เพื่อแสดงรูปภาพโปรไฟล์ของคุณ</string>
+	<key>NSRemindersUsageDescription</key>
+	<string>สัตวแพทยสภา Reminder Usage</string>
+	<key>NSSiriUsageDescription</key>
+	<string>สัตวแพทยสภา Siri Usage</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>สัตวแพทยสภา Speech Recognition Usage</string>
+	<key>NSUserTrackingUsageDescription</key>
+	<string>สัตวแพทยสภา ต้องการใช้ข้อมูลของคุณเพื่อปรับปรุงประสบการณ์ผู้ใช้</string>
+	<key>NSVideoSubscriberAccountUsageDescription</key>
+	<string>สัตวแพทยสภา Video Subscribe Usage</string>
+	<key>UIApplicationSupportsIndirectInputEvents</key>
+	<true/>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>remote-notification</string>
+	</array>
+	<key>UILaunchStoryboardName</key>
+	<string>LaunchScreen</string>
+	<key>UIMainStoryboardFile</key>
+	<string>Main</string>
+	<key>UIRequiresFullScreen</key>
+	<true/>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>UISupportedInterfaceOrientations~ipad</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<false/>
+	<key>io.flutter.embedded_views_preview</key>
+	<true/>
+	<key>kTCCServiceMediaLibrary</key>
+	<string>สัตวแพทยสภา MediaLibrary Usage</string>
+</dict>
+</plist>
