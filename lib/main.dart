@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:app_links/app_links.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
@@ -10,7 +11,6 @@ import 'package:flutter_line_sdk/flutter_line_sdk.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:uni_links/uni_links.dart';
 import 'package:vet/home_V2.dart';
 import 'package:vet/shared/api_provider.dart';
 import 'package:vet/splash.dart';
@@ -26,82 +26,42 @@ class MyHttpOverrides extends HttpOverrides {
 }
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+final appLinks = AppLinks();
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  
+
   await Firebase.initializeApp();
   await initializeDateFormatting('th');
 
   LineSDK.instance.setup('1655337910');
 
   HttpOverrides.global = MyHttpOverrides();
-  
+
   runApp(MyApp());
 
   // ย้าย initUniLinks มาหลังจาก runApp
-  initUniLinks();
+  initAppLinks();
 }
 
+Future<void> initAppLinks() async {
+  print('---------- initAppLinks ----------');
 
-Future<void> initUniLinks() async {
   try {
-    print('---------- initUniLinks ----------');
+    // รับลิงก์ตอนเปิดแอปครั้งแรก (initial link)
+    final initialUri = await appLinks.getInitialLink();
+    if (initialUri != null) {
+      print('---------- initialUri ---------- $initialUri');
 
-    try {
-      String? initialLink = await getInitialLink(); // รับค่าที่เป็น String?
-      if (initialLink != null) {
-        // จัดการ deep link
-        print('---------- initialLink ----------' + initialLink.toString());
+      // แปลงเป็น Uri แล้วดึงพารามิเตอร์
+      Uri? uri = initialUri;
+      String? code = uri.queryParameters['code'];
+      String? state = uri.queryParameters['state'];
 
-        // แปลง initialLink เป็น Uri
-        Uri uri = Uri.parse(initialLink);
+      if (code != null && state != null) {
+        print('Code: $code');
+        print('State: $state');
 
-        // ตรวจสอบว่ามีพารามิเตอร์ 'code' และ 'state' หรือไม่
-        String? code = uri.queryParameters['code'];
-        String? state = uri.queryParameters['state'];
-
-        // ตรวจสอบว่า 'code' และ 'state' มีค่าไม่เป็น null ก่อนใช้งาน
-        if (code != null && state != null) {
-          print('Code: $code');
-          print('State: $state');
-          // ดำเนินการตามค่าที่ได้รับจาก code และ state
-        } else {
-          print('Missing parameters: code or state');
-        }
-
-        // การตรวจสอบค่าของ 'state'
-        if (state == 'profile') {
-          navigatorKey.currentState?.pushReplacement(
-            MaterialPageRoute(builder: (context) => SplashPage()),
-          );
-        } else if (state == 'login') {
-          navigatorKey.currentState?.pushReplacement(
-            MaterialPageRoute(builder: (context) => SplashPage()),
-          );
-        }
-      }
-    } catch (e) {
-      print('Error handling uni links: $e');
-    }
-    uriLinkStream.listen((Uri? uri) async {
-      if (uri != null) {
-        // จัดการ deep link ที่ได้รับ
-        print('---------- uriLinkStream ----------' + uri.toString());
-
-        // Get the code and state from the URI parameters
-        String? code = uri.queryParameters['code'];
-        String? state = uri.queryParameters['state'];
-
-        if (code != null && state != null) {
-          print('Code: $code');
-          print('State: $state');
-          // ดำเนินการตามค่าที่ได้รับจาก code และ state
-        } else {
-          print('Missing parameters: code or state');
-        }
-
-        // ตรวจสอบ state และทำการนำทางไปยังหน้าต่างๆ
         if (state == 'profile') {
           navigatorKey.currentState?.pushReplacement(
             MaterialPageRoute(builder: (context) => SplashPage()),
@@ -110,7 +70,7 @@ Future<void> initUniLinks() async {
           Dio dio = Dio();
           var response = await dio.post(
             '${server}m/v2/register/thaid/login',
-            data: {'ref_code': code.toString()},
+            data: {'ref_code': code},
           );
 
           if (response.data['status'] == 'S') {
@@ -126,13 +86,55 @@ Future<void> initUniLinks() async {
           }
         }
       } else {
-        print('Received null URI');
+        print('Missing parameters: code or state');
       }
-    });
-  } on PlatformException {
-    // Handle error
-    print('---------- Error DeepLink ----------');
+    }
+  } catch (e) {
+    print('Error handling initial app link: $e');
   }
+
+  // ฟัง stream ลิงก์ขณะแอปรันอยู่
+  appLinks.uriLinkStream.listen((Uri? uri) async {
+    if (uri != null) {
+      print('---------- uriLinkStream ---------- $uri');
+
+      String? code = uri.queryParameters['code'];
+      String? state = uri.queryParameters['state'];
+
+      if (code != null && state != null) {
+        print('Code: $code');
+        print('State: $state');
+
+        if (state == 'profile') {
+          navigatorKey.currentState?.pushReplacement(
+            MaterialPageRoute(builder: (context) => SplashPage()),
+          );
+        } else if (state == 'login') {
+          Dio dio = Dio();
+          var response = await dio.post(
+            '${server}m/v2/register/thaid/login',
+            data: {'ref_code': code},
+          );
+
+          if (response.data['status'] == 'S') {
+            new TextEditingController().clear();
+            createStorageApp(
+              model: response.data['objectData'],
+              category: 'guest',
+            );
+
+            navigatorKey.currentState?.pushReplacement(
+              MaterialPageRoute(builder: (context) => HomePageV2()),
+            );
+          }
+        }
+      } else {
+        print('Missing parameters: code or state');
+      }
+    } else {
+      print('Received null URI');
+    }
+  });
 }
 
 class MyApp extends StatefulWidget {

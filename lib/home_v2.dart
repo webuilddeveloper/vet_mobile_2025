@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter_app_badger/flutter_app_badger.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
@@ -127,9 +126,9 @@ class _HomePageV2State extends State<HomePageV2> with WidgetsBindingObserver {
   void initState() {
     _read();
     super.initState();
-    NotificationService.instance.start(context);
-    _notificationSubscription = NotificationsBloc.instance.notificationStream
-        .listen(_performActionOnNotificationV2);
+    // NotificationService.instance.start(context);
+    // _notificationSubscription = NotificationsBloc.instance.notificationStream
+    //     .listen(_performActionOnNotificationV2);
     WidgetsBinding.instance.addObserver(this);
   }
 
@@ -811,7 +810,7 @@ class _HomePageV2State extends State<HomePageV2> with WidgetsBindingObserver {
     else
       add_badger = 0;
 
-    FlutterAppBadger.updateBadgeCount(add_badger);
+    // FlutterAppBadger.updateBadgeCount(add_badger);
 
     _updateBadgerStorage('isBadgerNews', _isNewsCount ? '1' : '0');
     _updateBadgerStorage('isBadgerEvent', _isEventCount ? '1' : '0');

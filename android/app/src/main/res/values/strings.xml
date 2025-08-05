@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">สัตวแพทยสภา</string>
+    <string name="facebook_app_id">720247029896279</string>
+    <string name="facebook_client_token">ba1c12fa9384e4fcf5d62d68bc108600</string>
+    <string name="fb_login_protocol_scheme">fb720247029896279</string>
+    <string name="line_channel_id">1655337910</string>
+    <string name="default_notification_channel_id" translatable="false">default_notification_channel_id</string>
+</resources>
