@@ -21,10 +21,14 @@ class AboutUsForm extends StatefulWidget {
 class _AboutUsForm extends State<AboutUsForm> {
   // final Set<Marker> _markers = {};
   final Completer<GoogleMapController> _mapController = Completer();
+  bool _ready = false;
 
   @override
   void initState() {
     super.initState();
+    Future.delayed(Duration(milliseconds: 300), () {
+      setState(() => _ready = true);
+    });
   }
 
   void goBack() async {
@@ -242,7 +246,7 @@ class _AboutUsForm extends State<AboutUsForm> {
                         Container(
                           height: MediaQuery.of(context).size.height * 0.5,
                           width: double.infinity,
-                          child: googleMap(lat, lng),
+                          child: _ready ? googleMap(lat, lng) : Container(),
                         ),
                         Container(
                           padding: EdgeInsets.all(15),
@@ -423,33 +427,58 @@ class _AboutUsForm extends State<AboutUsForm> {
     );
   }
 
-  Widget googleMap(double lat, double lng) {
-  return GoogleMap(
-    myLocationEnabled: true,
-    compassEnabled: true,
-    tiltGesturesEnabled: false,
-    mapType: MapType.normal,
-    initialCameraPosition: CameraPosition(
-      target: LatLng(lat, lng),
-      zoom: 16,
-    ),
-    gestureRecognizers: <Factory<OneSequenceGestureRecognizer>>{
-      Factory<OneSequenceGestureRecognizer>(() => EagerGestureRecognizer()),
-    },
-    onMapCreated: (GoogleMapController controller) {
-      if (!_mapController.isCompleted) {
+  googleMap(double lat, double lng) {
+    return GoogleMap(
+      myLocationEnabled: true,
+      compassEnabled: true,
+      tiltGesturesEnabled: false,
+      mapType: MapType.normal,
+      initialCameraPosition: CameraPosition(target: LatLng(lat, lng), zoom: 16),
+      gestureRecognizers: <Factory<OneSequenceGestureRecognizer>>{
+        Factory<OneSequenceGestureRecognizer>(() => EagerGestureRecognizer()),
+      },
+      onMapCreated: (GoogleMapController controller) {
         _mapController.complete(controller);
-      }
-    },
-    markers: <Marker>{
-      Marker(
-        markerId: const MarkerId('1'),
-        position: LatLng(lat, lng),
-        icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
-      ),
-    },
-  );
-}
+      },
+      // onTap: _handleTap,
+      markers: <Marker>{
+        Marker(
+          markerId: const MarkerId('1'),
+          position: LatLng(lat, lng),
+          icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
+        ),
+      },
+    );
+  }
+
+  // Widget googleMap(double? lat, double? lng) {
+  //   if (lat == null || lng == null) {
+  //     return const Center(child: CircularProgressIndicator());
+  //   }
+
+  //   return GoogleMap(
+  //     myLocationEnabled: true,
+  //     compassEnabled: true,
+  //     tiltGesturesEnabled: false,
+  //     mapType: MapType.normal,
+  //     initialCameraPosition: CameraPosition(target: LatLng(lat, lng), zoom: 16),
+  //     gestureRecognizers: <Factory<OneSequenceGestureRecognizer>>{
+  //       Factory<OneSequenceGestureRecognizer>(() => EagerGestureRecognizer()),
+  //     },
+  //     onMapCreated: (GoogleMapController controller) {
+  //       if (!_mapController.isCompleted) {
+  //         _mapController.complete(controller);
+  //       }
+  //     },
+  //     markers: {
+  //       Marker(
+  //         markerId: const MarkerId('1'),
+  //         position: LatLng(lat, lng),
+  //         icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
+  //       ),
+  //     },
+  //   );
+  // }
 
   Widget rowData({
     Image? image,
