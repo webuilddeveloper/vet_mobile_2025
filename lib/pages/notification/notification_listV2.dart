@@ -71,7 +71,7 @@ class _NotificationListV2 extends State<NotificationListV2>
   }
 
   _readNoti() async {
-    profileCode = await storage.read(key: 'profileCode9');
+    profileCode = await storage.read(key: 'profileCode10');
     if (profileCode != '' && profileCode != null)
       setState(() {
         _futureProfile = postDio(profileReadApi, {"code": profileCode});
@@ -93,7 +93,7 @@ class _NotificationListV2 extends State<NotificationListV2>
 
   _loading() async {
     _readNoti();
-    // var profileCode = await storage.read(key: 'profileCode9');
+    // var profileCode = await storage.read(key: 'profileCode10');
     // if (profileCode != '' && profileCode != null) {
     selectedCategoryDays = "";
     setState(() {
@@ -420,7 +420,7 @@ class _NotificationListV2 extends State<NotificationListV2>
                               ),
                             )
                             : listResultData.length > 0
-                            ?  ShaderMask(
+                            ? ShaderMask(
                               shaderCallback: (bounds) {
                                 return LinearGradient(
                                   colors: [
@@ -441,36 +441,32 @@ class _NotificationListV2 extends State<NotificationListV2>
                               blendMode:
                                   BlendMode.dstOut, // ใช้เพื่อให้มีการเฟดที่ขอบ
                               child: ListView(
-                                  controller: _controller,
-                                  // shrinkWrap: true,
-                                  physics: ClampingScrollPhysics(), // 2nd
-                                  children: <Widget>[
-                                    Container(
-                                      margin: EdgeInsets.only(left: 30),
-                                      child: Text(
-                                        '$selectedCategoryDaysName',
-                                        style: TextStyle(
-                                          color: Color(0xFF1B6CA8),
-                                          fontFamily: 'IBMPlex',
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 24,
-                                        ),
+                                controller: _controller,
+                                // shrinkWrap: true,
+                                physics: ClampingScrollPhysics(), // 2nd
+                                children: <Widget>[
+                                  Container(
+                                    margin: EdgeInsets.only(left: 30),
+                                    child: Text(
+                                      '$selectedCategoryDaysName',
+                                      style: TextStyle(
+                                        color: Color(0xFF1B6CA8),
+                                        fontFamily: 'IBMPlex',
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 24,
                                       ),
                                     ),
-                                    for (
-                                      int i = 0;
-                                      i < listResultData.length;
-                                      i++
-                                    )
-                                      new Container(
-                                        child: cardV2(
-                                          context,
-                                          listResultData[i],
-                                        ),
-                                      ),
-                                  ],
-                                ),
-                              
+                                  ),
+                                  for (
+                                    int i = 0;
+                                    i < listResultData.length;
+                                    i++
+                                  )
+                                    new Container(
+                                      child: cardV2(context, listResultData[i]),
+                                    ),
+                                ],
+                              ),
                             )
                             : new Container(
                               height: MediaQuery.of(context).size.height,

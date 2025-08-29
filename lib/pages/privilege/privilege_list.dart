@@ -5,9 +5,13 @@ import 'package:vet/pages/privilege/privilege_list_vertical.dart';
 import 'package:vet/shared/api_provider.dart';
 
 class PrivilegeList extends StatefulWidget {
-  PrivilegeList(
-      {Key? key, this.keySearch, this.category, this.isHighlight, this.title})
-      : super(key: key);
+  PrivilegeList({
+    Key? key,
+    this.keySearch,
+    this.category,
+    this.isHighlight,
+    this.title,
+  }) : super(key: key);
 
   final String? title;
   final String? keySearch;
@@ -24,8 +28,9 @@ class _PrivilegeList extends State<PrivilegeList> {
   bool hideSearch = true;
   int _limit = 0;
 
-  RefreshController _refreshController =
-      RefreshController(initialRefresh: false);
+  RefreshController _refreshController = RefreshController(
+    initialRefresh: false,
+  );
 
   @override
   void initState() {
@@ -34,7 +39,7 @@ class _PrivilegeList extends State<PrivilegeList> {
   }
 
   void _onLoading() async {
-    // var profileCode = await storage.read(key: 'profileCode9');
+    // var profileCode = await storage.read(key: 'profileCode10');
     // if (profileCode != '' && profileCode != null) {
     setState(() {
       _limit = _limit + 10;
@@ -81,10 +86,8 @@ class _PrivilegeList extends State<PrivilegeList> {
         physics: ClampingScrollPhysics(), // 2nd
         children: [
           // SubHeader(th: widget.title, en: ''),
-          SizedBox(
-            height: 5.0,
-          ),
-          gridView ?? Container()
+          SizedBox(height: 5.0),
+          gridView ?? Container(),
         ],
       ),
     );

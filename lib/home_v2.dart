@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously, curly_braces_in_flow_control_structures, prefer_typing_uninitialized_variables, deprecated_member_use, library_private_types_in_public_api
+
 import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
@@ -7,7 +9,6 @@ import 'package:intl/intl.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:vet/component/carouselBannerDotStack.dart';
 import 'package:vet/component/carousel_form.dart';
-import 'package:vet/component/carousel_rotation.dart';
 import 'package:vet/component/header_v2.dart';
 import 'package:vet/component/link_url_out.dart';
 import 'package:vet/main_popup_dialog.dart';
@@ -17,73 +18,52 @@ import 'package:vet/pages/check_credits/check_credits_list.dart';
 import 'package:vet/pages/contact/contact_list_category.dart';
 import 'package:vet/pages/ebook/ebook_list.dart';
 import 'package:vet/pages/enfranchise/enfrancise_main.dart';
-import 'package:vet/pages/event_calendar/event_calendar_form.dart';
 import 'package:vet/pages/event_calendar/event_calendar_main.dart';
-import 'package:vet/pages/knowledge/knowledge_form.dart';
 import 'package:vet/pages/knowledge/knowledge_list.dart';
-import 'package:vet/pages/news/news_form.dart';
 import 'package:vet/pages/news/news_list.dart';
-import 'package:vet/pages/notification/notification_expireform.dart';
 import 'package:vet/pages/notification/notification_listV2.dart';
-import 'package:vet/pages/poi/poi_form.dart';
 import 'package:vet/pages/policy_v2.dart';
-import 'package:vet/pages/poll/poll_form.dart';
 import 'package:vet/pages/poll/poll_list.dart';
-import 'package:vet/pages/privilege/privilege_form.dart';
 import 'package:vet/pages/privilege/privilege_main.dart';
 import 'package:vet/pages/privilegeSpecial/privilege_special_list.dart';
 import 'package:vet/pages/profile/identity_verification.dart';
 import 'package:vet/pages/profile/profile.dart';
 import 'package:vet/pages/profile/user_information.dart';
 import 'package:vet/pages/teacher/teacher/teacher_index.dart';
-import 'package:vet/shared/notification_bloc.dart';
-import 'package:vet/shared/notification_service.dart';
 import 'package:vet/widget/dialog.dart';
 import 'shared/api_provider.dart';
 
 class HomePageV2 extends StatefulWidget {
+  const HomePageV2({super.key});
+
   @override
   _HomePageV2State createState() => _HomePageV2State();
 }
 
 class _HomePageV2State extends State<HomePageV2> with WidgetsBindingObserver {
-  late AppLifecycleState _notification;
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     setState(() {
-      _notification = state;
       _addBadger();
     });
   }
 
-  final storage = new FlutterSecureStorage();
+  final storage = FlutterSecureStorage();
   late DateTime currentBackPressTime;
 
   Future<dynamic>? _futureBanner;
   Future<dynamic>? _futureProfile;
   Future<dynamic>? _futureOrganizationImage;
   Future<dynamic>? _futureMenu;
-  Future<dynamic>? _futureRotation;
   Future<dynamic>? _futureAboutUs;
   Future<dynamic>? _futureMainPopUp;
-  Future<dynamic>? _futureContact;
-  Future<dynamic>? _futureEbook;
   Future<dynamic>? _futureNoti;
-  Future<dynamic>? _futureNotiExam;
-  Future<dynamic>? _futureNews;
-  Future<dynamic>? _futureKnowledge;
-  Future<dynamic>? _futureEventCalendar;
-  Future<dynamic>? _futurePrivilege;
-  Future<dynamic>? _futurePoi;
-  Future<dynamic>? _futureWarning;
-  Future<dynamic>? _futureWalfare;
-  Future<dynamic>? _futureMain;
-  Future<dynamic>? _futureNotification;
   dynamic _policyMarketing;
 
-  String _imageUrl = '';
+  int addBadger = 0;
+
   // String currentLocation = '-';
-  final seen = Set<String>();
+  final seen = <String>{};
   List unique = [];
   List imageLv0 = [];
 
@@ -92,9 +72,6 @@ class _HomePageV2State extends State<HomePageV2> with WidgetsBindingObserver {
   bool checkDirection = false;
   LatLng latLng = LatLng(0, 0);
 
-  dynamic _newsCount;
-  dynamic _eventCount;
-  dynamic _pollCount;
   dynamic _isNewsCount = false;
   dynamic _isEventCount = false;
   dynamic _isPollCount = false;
@@ -102,21 +79,17 @@ class _HomePageV2State extends State<HomePageV2> with WidgetsBindingObserver {
 
   dynamic lcCategory = false;
   int nortiCount = 0;
-  int add_badger = 0;
   String _idcard = '';
   String _licenseNumber = '';
   String? licenseNumberSub;
-  dynamic _newsPage;
-  dynamic _eventPage;
-  dynamic _privilegePage;
-  dynamic _knowledgePage;
-  dynamic _poiPage;
-  dynamic _warningPage;
-  dynamic _walfarePage;
-  dynamic _mainPage;
-  dynamic _notificationPage;
+  // dynamic _newsPage;
+  // dynamic _eventPage;
+  // dynamic _privilegePage;
+  // dynamic _knowledgePage;
+  // dynamic _poiPage;
+  // dynamic _notificationPage;
 
-  RefreshController _refreshController = RefreshController(
+  final RefreshController _refreshController = RefreshController(
     initialRefresh: false,
   );
 
@@ -150,6 +123,7 @@ class _HomePageV2State extends State<HomePageV2> with WidgetsBindingObserver {
         callback: _readNoti,
       ),
       body: WillPopScope(
+        onWillPop: confirmExit,
         child: NotificationListener<OverscrollIndicatorNotification>(
           onNotification: (OverscrollIndicatorNotification overScroll) {
             overScroll.disallowIndicator();
@@ -157,15 +131,13 @@ class _HomePageV2State extends State<HomePageV2> with WidgetsBindingObserver {
           },
           child: _buildBackground(),
         ),
-        onWillPop: confirmExit,
       ),
     );
   }
 
   Future<bool> confirmExit() {
     DateTime now = DateTime.now();
-    if (currentBackPressTime == null ||
-        now.difference(currentBackPressTime) > Duration(seconds: 2)) {
+    if (now.difference(currentBackPressTime) > Duration(seconds: 2)) {
       currentBackPressTime = now;
       toastFail(
         context: context,
@@ -205,39 +177,6 @@ class _HomePageV2State extends State<HomePageV2> with WidgetsBindingObserver {
       },
       child: _buildMenu(),
       // child: _buildSmartRefresher(),
-    );
-  }
-
-  _buildSmartRefresher() {
-    return SmartRefresher(
-      enablePullDown: true,
-      enablePullUp: false,
-      header: WaterDropHeader(
-        complete: Container(child: Text('')),
-        completeDuration: Duration(milliseconds: 0),
-      ),
-      footer: CustomFooter(
-        builder: (BuildContext context, LoadStatus? mode) {
-          Widget body;
-          if (mode == LoadStatus.idle) {
-            body = Text("pull up load");
-          } else if (mode == LoadStatus.loading) {
-            body = Text("loading...");
-          } else if (mode == LoadStatus.failed) {
-            body = Text("Load Failed! Click retry!");
-          } else if (mode == LoadStatus.canLoading) {
-            body = Text("release to load more");
-          } else {
-            body = Text("No more Data");
-          }
-          return Container(height: 55.0, child: Center(child: body));
-        },
-      ),
-
-      controller: _refreshController,
-      onRefresh: _onRefresh,
-      onLoading: _onLoading,
-      child: _buildMenu(),
     );
   }
 
@@ -676,49 +615,21 @@ class _HomePageV2State extends State<HomePageV2> with WidgetsBindingObserver {
     );
   }
 
-  _buildRotation() {
-    return Padding(
-      padding: EdgeInsets.only(left: 15, right: 15, top: 5),
-      child: CarouselRotation(
-        model: _futureRotation,
-        nav: (String path, String action, dynamic model, String code) {
-          if (action == 'out') {
-            // launchInWebViewWithJavaScript(path);
-            launchURL(path);
-          } else if (action == 'in') {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder:
-                    (context) => CarouselForm(
-                      code: code,
-                      model: model,
-                      url: mainBannerApi,
-                      urlGallery: bannerGalleryApi,
-                    ),
-              ),
-            );
-          }
-        },
-      ),
-    );
-  }
-
   _readNoti() async {
-    var _profile = await _futureProfile;
-    dynamic _username = _profile["username"];
-    _futureNoti = postDio(notificationApi + 'count', {"username": _username});
-    var _norti = await _futureNoti;
+    var profile = await _futureProfile;
+    dynamic username = profile["username"];
+    _futureNoti = postDio('${notificationApi}count', {"username": username});
+    var norti = await _futureNoti;
     setState(() {
-      nortiCount = _norti['total'];
+      nortiCount = norti['total'];
     });
   }
 
   _read() async {
     //read profile
     _callReadPolicy();
-    var profileCode = await storage.read(key: 'profileCode9');
-    if (profileCode != '' && profileCode != null)
+    var profileCode = await storage.read(key: 'profileCode10');
+    if (profileCode != '' && profileCode != null) {
       setState(() {
         _futureProfile = postDio(profileReadApi, {"code": profileCode});
         // _futureNotiExam = postDio('${notificationApi}readExam', {});
@@ -726,35 +637,32 @@ class _HomePageV2State extends State<HomePageV2> with WidgetsBindingObserver {
           "code": profileCode,
         });
       });
-    else {
+    } else {
       logout(context);
     }
 
     _futureMenu = postDio('${menuApi}read', {'limit': 100});
     _futureBanner = postDio('${mainBannerApi}read', {'limit': 10});
-    _futureRotation = postDio('${mainRotationApi}read', {'limit': 10});
     _futureMainPopUp = postDio('${mainPopupHomeApi}read', {'limit': 10});
     _futureAboutUs = postDio('${aboutUsApi}read', {});
-    _futureEventCalendar = postDio('${eventCalendarApi}read', {'limit': 10});
-    _futureContact = postDio('${contactApi}read', {'limit': 10});
-    _futureNews = postDio('${newsApi}read', {'limit': 10});
-    _futureKnowledge = postDio('${knowledgeApi}read', {'limit': 10});
-    _futureEbook = postDio('${cooperativeApi}read', {'limit': 10});
-    _policyMarketing = await postDio(server + "m/policy/read", {
+    // _futureEventCalendar = postDio('${eventCalendarApi}read', {'limit': 10});
+    // _futureNews = postDio('${newsApi}read', {'limit': 10});
+    // _futureKnowledge = postDio('${knowledgeApi}read', {'limit': 10});
+    _policyMarketing = await postDio("${server}m/policy/read", {
       "category": "marketing",
       "skip": 0,
       "limit": 10,
     });
-    var _profile = await _futureProfile;
-    dynamic _username = _profile["username"];
-    _idcard = _profile["idcard"];
-    _licenseNumber = _profile["licenseNumber"];
+    var profile = await _futureProfile;
+    dynamic username = profile["username"];
+    _idcard = profile["idcard"];
+    _licenseNumber = profile["licenseNumber"];
     licenseNumberSub = _licenseNumber.substring(8);
-    _futureNoti = postDio(notificationApi + 'count', {"username": _username});
-    var _norti = await _futureNoti;
+    _futureNoti = postDio('${notificationApi}count', {"username": username});
+    var norti = await _futureNoti;
 
     setState(() {
-      nortiCount = _norti['total'];
+      nortiCount = norti['total'];
     });
 
     //get api Count
@@ -791,24 +699,24 @@ class _HomePageV2State extends State<HomePageV2> with WidgetsBindingObserver {
     _isPollCount = storagePollCount == '1' ? true : false;
     _isPrivilegeCount = storagePrivilegeCount == '1' ? true : false;
 
-    if (_isNewsCount && _isEventCount && _isPollCount && _isPrivilegeCount)
-      add_badger = 4;
-    else if ((_isNewsCount && _isEventCount && _isPollCount) ||
+    if (_isNewsCount && _isEventCount && _isPollCount && _isPrivilegeCount) {
+      addBadger = 4;
+    } else if ((_isNewsCount && _isEventCount && _isPollCount) ||
         (_isNewsCount && _isEventCount && _isPrivilegeCount) ||
         (_isNewsCount && _isPollCount && _isPrivilegeCount) ||
         (_isEventCount && _isPollCount && _isPrivilegeCount))
-      add_badger = 3;
+      addBadger = 3;
     else if ((_isNewsCount && _isEventCount) ||
         (_isNewsCount && _isPollCount) ||
         (_isNewsCount && _isPrivilegeCount) ||
         (_isPollCount && _isEventCount) ||
         (_isPollCount && _isPrivilegeCount) ||
         (_isEventCount && _isPrivilegeCount))
-      add_badger = 2;
+      addBadger = 2;
     else if (_isNewsCount || _isEventCount || _isPollCount || _isPrivilegeCount)
-      add_badger = 1;
+      addBadger = 1;
     else
-      add_badger = 0;
+      addBadger = 0;
 
     // FlutterAppBadger.updateBadgeCount(add_badger);
 
@@ -834,8 +742,8 @@ class _HomePageV2State extends State<HomePageV2> with WidgetsBindingObserver {
         dataValue = null;
       }
 
-      var now = new DateTime.now();
-      DateTime date = new DateTime(now.year, now.month, now.day);
+      var now = DateTime.now();
+      DateTime date = DateTime(now.year, now.month, now.day);
 
       if (dataValue != null) {
         var index = dataValue.indexWhere(
@@ -847,7 +755,7 @@ class _HomePageV2State extends State<HomePageV2> with WidgetsBindingObserver {
         );
 
         if (index == -1) {
-          this.setState(() {
+          setState(() {
             hiddenMainPopUp = false;
           });
           return showDialog(
@@ -866,12 +774,12 @@ class _HomePageV2State extends State<HomePageV2> with WidgetsBindingObserver {
             },
           );
         } else {
-          this.setState(() {
+          setState(() {
             hiddenMainPopUp = true;
           });
         }
       } else {
-        this.setState(() {
+        setState(() {
           hiddenMainPopUp = false;
         });
         return showDialog(
@@ -932,241 +840,8 @@ class _HomePageV2State extends State<HomePageV2> with WidgetsBindingObserver {
   //   // );
   // }
 
-  _performActionOnNotificationV2(Map<String, dynamic> message) async {
-    switch (message['page']) {
-      case 'NEWS':
-        {
-          _futureNews = postDio('${newsApi}read', {
-            'skip': 0,
-            'limit': 1,
-            'code': message['code'],
-          });
-          _newsPage = await _futureNews;
-          if (_newsPage != null) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder:
-                    (context) =>
-                        NewsForm(code: message['code'], model: _newsPage[0]),
-              ),
-            );
-          }
-        }
-        break;
-
-      case 'EVENTCALENDAR':
-        {
-          _futureEventCalendar = postDio('${eventCalendarApi}read', {
-            'skip': 0,
-            'limit': 1,
-            'code': message['code'],
-          });
-          _eventPage = await _futureEventCalendar;
-          if (_eventPage != null) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder:
-                    (context) => EventCalendarForm(
-                      url: eventCalendarApi + 'read',
-                      code: message['code'],
-                      model: _eventPage[0],
-                      urlComment: eventCalendarCommentApi,
-                      urlGallery: eventCalendarGalleryApi,
-                    ),
-              ),
-            );
-          }
-        }
-        break;
-
-      case 'PRIVILEGE':
-        {
-          _futurePrivilege = postDio('${privilegeApi}read', {
-            'skip': 0,
-            'limit': 1,
-            'code': message['code'],
-          });
-          _privilegePage = await _futurePrivilege;
-          if (_privilegePage != null) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder:
-                    (context) => PrivilegeForm(
-                      code: message['code'],
-                      model: _privilegePage[0],
-                    ),
-              ),
-            );
-          }
-        }
-        break;
-
-      case 'KNOWLEDGE':
-        {
-          _futureKnowledge = postDio('${knowledgeApi}read', {
-            'skip': 0,
-            'limit': 1,
-            'code': message['code'],
-          });
-          _knowledgePage = await _futureKnowledge;
-          if (_knowledgePage != null) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder:
-                    (context) => KnowledgeForm(
-                      code: message['code'],
-                      model: _knowledgePage[0],
-                    ),
-              ),
-            );
-          }
-        }
-        break;
-
-      case 'POI':
-        {
-          _futurePoi = postDio('${poiApi}read', {
-            'skip': 0,
-            'limit': 1,
-            'code': message['code'],
-          });
-          _poiPage = await _futurePoi;
-          if (_poiPage != null) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder:
-                    (context) => PoiForm(
-                      url: poiApi + 'read',
-                      code: message['code'],
-                      model: _poiPage[0],
-                      urlComment: poiCommentApi,
-                      urlGallery: poiGalleryApi,
-                    ),
-              ),
-            );
-          }
-        }
-        break;
-
-      case 'POLL':
-        {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder:
-                  (context) => PollForm(
-                    code: message['code'],
-                    // model: message,
-                  ),
-            ),
-          );
-        }
-        break;
-      case 'VETEXAM':
-        {
-          _futureNotification = postDio('${notificationApi}read', {
-            'skip': 0,
-            'limit': 1,
-            'reference': message['code'],
-          });
-          _notificationPage = await _futureNotification;
-          if (_notificationPage != null) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder:
-                    (context) => NotificationExpireForm(
-                      code: message['code'],
-                      model: _notificationPage[0],
-                    ),
-              ),
-            );
-          }
-        }
-        break;
-      case 'VETRESULT':
-        {
-          _futureNotification = postDio('${notificationApi}read', {
-            'skip': 0,
-            'limit': 1,
-            'reference': message['code'],
-          });
-          _notificationPage = await _futureNotification;
-          if (_notificationPage != null) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder:
-                    (context) => NotificationExpireForm(
-                      code: message['code'],
-                      model: _notificationPage[0],
-                    ),
-              ),
-            );
-          }
-        }
-        break;
-      // case 'warningPage':
-      //   {
-      //     _futureWarning = postDio('${warningApi}read',
-      //         {'skip': 0, 'limit': 1, 'code': message['code']});
-      //     _warningPage = await _futureWarning;
-      //     Navigator.push(
-      //       context,
-      //       MaterialPageRoute(
-      //         builder: (context) => WarningForm(
-      //           code: message['code'],
-      //           model: _warningPage[0],
-      //         ),
-      //       ),
-      //     );
-      //   }
-      //   break;
-
-      // case 'welfarePage':
-      //   {
-      //     _futureWalfare = postDio('${welfareApi}read',
-      //         {'skip': 0, 'limit': 1, 'code': message['code']});
-      //     _walfarePage = await _futureWalfare;
-      //     Navigator.push(
-      //       context,
-      //       MaterialPageRoute(
-      //         builder: (context) => WelfareForm(
-      //           code: message['code'],
-      //           model: _walfarePage[0],
-      //         ),
-      //       ),
-      //     );
-      //   }
-      //   break;
-
-      // case 'mainPage':
-      //   {
-      //     _futureMain = postDio('${notificationApi}detail',
-      //         {'skip': 0, 'limit': 1, 'code': message['code']});
-      //     _mainPage = await _futureMain;
-      //     return Navigator.push(
-      //       context,
-      //       MaterialPageRoute(
-      //         builder: (context) => MainPageForm(
-      //           code: message['code'],
-      //           model: _mainPage[0],
-      //         ),
-      //       ),
-      //     );
-      //   }
-      //   break;
-      default:
-    }
-  }
-
   Future<Null> _callReadPolicy() async {
-    var policy = await postDio(server + "m/policy/read", {
+    var policy = await postDio("${server}m/policy/read", {
       "category": "application",
       "skip": 0,
       "limit": 10,
@@ -1189,8 +864,9 @@ class _HomePageV2State extends State<HomePageV2> with WidgetsBindingObserver {
         ),
         (Route<dynamic> route) => false,
       );
-    } else
+    } else {
       _buildMainPopUp();
+    }
   }
 
   Future<Null> _callReadPolicyPrivilege(String title, dynamic model) async {
@@ -1224,7 +900,7 @@ class _HomePageV2State extends State<HomePageV2> with WidgetsBindingObserver {
   }
 
   Future<Null> _callReadPolicyPrivilegeAtoZ(code) async {
-    var policy = await postDio(server + "m/policy/readAtoZ", {
+    var policy = await postDio("${server}m/policy/readAtoZ", {
       "reference": "AtoZ",
     });
     if (policy.length <= 0) {

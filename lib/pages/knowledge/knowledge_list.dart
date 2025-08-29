@@ -24,8 +24,9 @@ class _KnowledgeList extends State<KnowledgeList> {
   int _limit = 0;
   Future<dynamic>? _futureCategory;
 
-  RefreshController _refreshController =
-      RefreshController(initialRefresh: false);
+  RefreshController _refreshController = RefreshController(
+    initialRefresh: false,
+  );
   final storage = new FlutterSecureStorage();
 
   @override
@@ -45,18 +46,15 @@ class _KnowledgeList extends State<KnowledgeList> {
   }
 
   void _onLoading() async {
-    // var profileCode = await storage.read(key: 'profileCode9');
+    // var profileCode = await storage.read(key: 'profileCode10');
     // if (profileCode != '' && profileCode != null) {
     setState(() {
       _limit = _limit + 10;
-      _futureCategory = postCategory(
-        '${knowledgeCategoryApi}read',
-        {
-          'skip': 0,
-          'limit': 100,
-          // 'profileCode': profileCode,
-        },
-      );
+      _futureCategory = postCategory('${knowledgeCategoryApi}read', {
+        'skip': 0,
+        'limit': 100,
+        // 'profileCode': profileCode,
+      });
       gridView = new KnowledgeListVertical(
         site: 'DDPM',
         model: postDio('${knowledgeApi}read', {
@@ -109,31 +107,19 @@ class _KnowledgeList extends State<KnowledgeList> {
               CategorySelector(
                 model: _futureCategory,
                 onChange: (String val) {
-                  setState(
-                    () => {
-                      category = val,
-                    },
-                  );
+                  setState(() => {category = val});
                   _onLoading();
                 },
               ),
-              SizedBox(
-                height: 5.0,
-              ),
+              SizedBox(height: 5.0),
               KeySearch(
                 show: hideSearch,
                 onKeySearchChange: (String val) {
-                  setState(
-                    () => {
-                      keySearch = val,
-                    },
-                  );
+                  setState(() => {keySearch = val});
                   _onLoading();
                 },
               ),
-              SizedBox(
-                height: 10.0,
-              ),
+              SizedBox(height: 10.0),
               Expanded(
                 child: SmartRefresher(
                   enablePullDown: false,

@@ -37,21 +37,18 @@ class _SplashPageState extends State<SplashPage> {
 
   _callNavigatorPage() async {
     final storage = new FlutterSecureStorage();
-    String? value = await storage.read(key: 'profileCode9');
+    String? value = await storage.read(key: 'profileCode10');
 
     if (value != null && value != '') {
       Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(
-          builder: (context) => HomePageV2(),
-        ),
+        MaterialPageRoute(builder: (context) => HomePageV2()),
         (Route<dynamic> route) => false,
       );
     } else {
       Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(
-          builder: (context) => LoginAndRegisterPage(),
-        ),
-        (Route<dynamic> route) => false);
+        MaterialPageRoute(builder: (context) => LoginAndRegisterPage()),
+        (Route<dynamic> route) => false,
+      );
     }
   }
 
@@ -67,20 +64,22 @@ class _SplashPageState extends State<SplashPage> {
           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
             if (snapshot.hasData) {
               //if no splash from service is return array length 0
-              _callTimer((snapshot.data.length > 0
-                      ? int.parse(snapshot.data[0]['timeOut']) / 1000
-                      : 0)
-                  .round());
+              _callTimer(
+                (snapshot.data.length > 0
+                        ? int.parse(snapshot.data[0]['timeOut']) / 1000
+                        : 0)
+                    .round(),
+              );
 
               return snapshot.data.length > 0
                   ? Center(
-                      child: Image.network(
-                        snapshot.data[0]['imageUrl'],
-                        fit: BoxFit.cover,
-                        height: double.infinity,
-                        width: double.infinity,
-                      ),
-                    )
+                    child: Image.network(
+                      snapshot.data[0]['imageUrl'],
+                      fit: BoxFit.cover,
+                      height: double.infinity,
+                      width: double.infinity,
+                    ),
+                  )
                   : Container();
             } else if (snapshot.hasError) {
               return Center(
@@ -90,9 +89,7 @@ class _SplashPageState extends State<SplashPage> {
                 ),
               );
             } else {
-              return Center(
-                child: Container(),
-              );
+              return Center(child: Container());
             }
           },
         ),

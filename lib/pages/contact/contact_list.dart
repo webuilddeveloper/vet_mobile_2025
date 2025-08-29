@@ -7,11 +7,7 @@ import 'package:vet/pages/contact/contact_list_vertical.dart';
 import 'package:vet/shared/api_provider.dart';
 
 class ContactList extends StatefulWidget {
-  ContactList({
-    Key? key,
-    this.title,
-    this.code,
-  }) : super(key: key);
+  ContactList({Key? key, this.title, this.code}) : super(key: key);
 
   final String? title;
   final String? code;
@@ -28,8 +24,9 @@ class _ContactList extends State<ContactList> {
   String category = '';
   int _limit = 0;
 
-  RefreshController _refreshController =
-      RefreshController(initialRefresh: false);
+  RefreshController _refreshController = RefreshController(
+    initialRefresh: false,
+  );
   final storage = new FlutterSecureStorage();
 
   late Future<dynamic> _futureContact;
@@ -52,7 +49,7 @@ class _ContactList extends State<ContactList> {
   }
 
   void _onLoading() async {
-    // var profileCode = await storage.read(key: 'profileCode9');
+    // var profileCode = await storage.read(key: 'profileCode10');
     // if (profileCode != '' && profileCode != null) {
     setState(() {
       _limit = _limit + 10;
@@ -119,11 +116,9 @@ class _ContactList extends State<ContactList> {
                 KeySearch(
                   show: hideSearch,
                   onKeySearchChange: (String val) {
-                    setState(
-                      () {
-                        keySearch = val;
-                      },
-                    );
+                    setState(() {
+                      keySearch = val;
+                    });
                     _onLoading();
                   },
                 ),
@@ -144,7 +139,8 @@ class _ContactList extends State<ContactList> {
                     controller: _refreshController,
                     onLoading: _onLoading,
                     child: ListView(
-                      physics: ScrollPhysics(), shrinkWrap: true,
+                      physics: ScrollPhysics(),
+                      shrinkWrap: true,
                       // controller: _controller,
                       children: [
                         ContactListVertical(
@@ -156,7 +152,7 @@ class _ContactList extends State<ContactList> {
                       ],
                     ),
                   ),
-                )
+                ),
               ],
             ),
           ),

@@ -26,8 +26,9 @@ class _ExaminationList extends State<ExaminationList> {
   int _limit = 0;
   Future<dynamic>? _futureCategory;
 
-  RefreshController _refreshController =
-      RefreshController(initialRefresh: false);
+  RefreshController _refreshController = RefreshController(
+    initialRefresh: false,
+  );
 
   // final ScrollController _controller = ScrollController();
   @override
@@ -45,7 +46,7 @@ class _ExaminationList extends State<ExaminationList> {
   }
 
   void _onLoading() async {
-    // var profileCode = await storage.read(key: 'profileCode9');
+    // var profileCode = await storage.read(key: 'profileCode10');
     // if (profileCode != '' && profileCode != null) {
     setState(() {
       _limit = _limit + 10;
@@ -64,7 +65,7 @@ class _ExaminationList extends State<ExaminationList> {
           'skip': 0,
           'limit': _limit,
           'category': category,
-          'keySearch': keySearch
+          'keySearch': keySearch,
           // 'profileCode': profileCode,
         }),
         titleHome: widget.title ?? '',
@@ -130,11 +131,7 @@ class _ExaminationList extends State<ExaminationList> {
                 CategorySelector(
                   model: _futureCategory,
                   onChange: (String val) {
-                    setState(
-                      () => {
-                        category = val,
-                      },
-                    );
+                    setState(() => {category = val});
                     _onLoading();
                   },
                 ),
@@ -143,11 +140,7 @@ class _ExaminationList extends State<ExaminationList> {
                   show: hideSearch,
                   onKeySearchChange: (String val) {
                     // examinationList(context, service.postDio('${service.examinationApi}read', {'skip': 0, 'limit': 100,"keySearch": val}),'');
-                    setState(
-                      () => {
-                        keySearch = val,
-                      },
-                    );
+                    setState(() => {keySearch = val});
                     _onLoading();
                   },
                 ),

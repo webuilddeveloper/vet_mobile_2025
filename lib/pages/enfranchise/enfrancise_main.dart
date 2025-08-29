@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/services.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:intl/intl.dart';
@@ -20,7 +22,7 @@ class EnfranchiseMain extends StatefulWidget {
 }
 
 class _EnfranchiseMain extends State<EnfranchiseMain> {
-  final storage = new FlutterSecureStorage();
+  final storage = FlutterSecureStorage();
   bool isConfirm = false;
   int currentStep = 0;
   String profileCode = "";
@@ -63,7 +65,7 @@ class _EnfranchiseMain extends State<EnfranchiseMain> {
   }
 
   _callRead() async {
-    profileCode = (await storage.read(key: 'profileCode9'))!;
+    profileCode = (await storage.read(key: 'profileCode10'))!;
     _futureEnfrancise = postDio('${server}m/enfranchise/read', {
       'code': profileCode,
       'reference': widget.reference,
@@ -541,7 +543,7 @@ class _EnfranchiseMain extends State<EnfranchiseMain> {
             false,
           ),
           labelTextFormFieldRequired('* ', 'ช่วงอายุ'),
-          new Container(
+          Container(
             width: 5000.0,
             padding: EdgeInsets.symmetric(horizontal: 5, vertical: 0),
             // decoration: BoxDecoration(
@@ -573,7 +575,7 @@ class _EnfranchiseMain extends State<EnfranchiseMain> {
                       value: _selectedAgeRange,
                       onTap: () {
                         FocusScope.of(context).unfocus();
-                        new TextEditingController().clear();
+                        TextEditingController().clear();
                       },
                       onChanged: (newValue) {
                         setState(() {
@@ -583,7 +585,7 @@ class _EnfranchiseMain extends State<EnfranchiseMain> {
                       items:
                           _itemAgeRange.map((item) {
                             return DropdownMenuItem(
-                              child: new Text(
+                              child: Text(
                                 item['title'],
                                 style: TextStyle(
                                   fontSize: 15.00,
@@ -621,7 +623,7 @@ class _EnfranchiseMain extends State<EnfranchiseMain> {
                       items:
                           _itemAgeRange.map((item) {
                             return DropdownMenuItem(
-                              child: new Text(
+                              child: Text(
                                 item['title'],
                                 style: TextStyle(
                                   fontSize: 15.00,
@@ -635,7 +637,7 @@ class _EnfranchiseMain extends State<EnfranchiseMain> {
                     ),
           ),
           labelTextFormFieldRequired('* ', 'อาชีพ'),
-          new Container(
+          Container(
             width: 5000.0,
             padding: EdgeInsets.symmetric(horizontal: 5, vertical: 0),
             // decoration: BoxDecoration(
@@ -667,7 +669,7 @@ class _EnfranchiseMain extends State<EnfranchiseMain> {
                       value: _selectedJob,
                       onTap: () {
                         FocusScope.of(context).unfocus();
-                        new TextEditingController().clear();
+                        TextEditingController().clear();
                       },
                       onChanged: (newValue) {
                         setState(() {
@@ -677,7 +679,7 @@ class _EnfranchiseMain extends State<EnfranchiseMain> {
                       items:
                           _itemJob.map((item) {
                             return DropdownMenuItem(
-                              child: new Text(
+                              child: Text(
                                 item['title'],
                                 style: TextStyle(
                                   fontSize: 15.00,
@@ -715,7 +717,7 @@ class _EnfranchiseMain extends State<EnfranchiseMain> {
                       items:
                           _itemJob.map((item) {
                             return DropdownMenuItem(
-                              child: new Text(
+                              child: Text(
                                 item['title'],
                                 style: TextStyle(
                                   fontSize: 15.00,
@@ -745,7 +747,7 @@ class _EnfranchiseMain extends State<EnfranchiseMain> {
               )
               : Container(),
           labelTextFormFieldRequired('* ', 'จังหวัด'),
-          new Container(
+          Container(
             width: 5000.0,
             padding: EdgeInsets.symmetric(horizontal: 5, vertical: 0),
             // decoration: BoxDecoration(
@@ -777,7 +779,7 @@ class _EnfranchiseMain extends State<EnfranchiseMain> {
                       value: _selectedProvince,
                       onTap: () {
                         FocusScope.of(context).unfocus();
-                        new TextEditingController().clear();
+                        TextEditingController().clear();
                       },
                       onChanged: (newValue) {
                         setState(() {
@@ -791,7 +793,7 @@ class _EnfranchiseMain extends State<EnfranchiseMain> {
                       items:
                           _itemProvince.map((item) {
                             return DropdownMenuItem(
-                              child: new Text(
+                              child: Text(
                                 item['title'],
                                 style: TextStyle(
                                   fontSize: 15.00,
@@ -833,7 +835,7 @@ class _EnfranchiseMain extends State<EnfranchiseMain> {
                       items:
                           _itemProvince.map((item) {
                             return DropdownMenuItem(
-                              child: new Text(
+                              child: Text(
                                 item['title'],
                                 style: TextStyle(
                                   fontSize: 15.00,
@@ -950,7 +952,7 @@ class _EnfranchiseMain extends State<EnfranchiseMain> {
   }
 
   Widget _textFieldOTP(model, {bool? first, last, FocusNode? focusNode}) {
-    return Container(
+    return SizedBox(
       height: (MediaQuery.of(context).size.height / 100) * 10,
       width: (MediaQuery.of(context).size.width / 100) * 13,
       child: AspectRatio(
@@ -962,7 +964,7 @@ class _EnfranchiseMain extends State<EnfranchiseMain> {
             if (value.length == 1 && last == false) {
               FocusScope.of(context).nextFocus();
             }
-            if (value.length == 0 && first == false) {
+            if (value.isEmpty && first == false) {
               FocusScope.of(context).previousFocus();
             }
           },
@@ -1008,7 +1010,7 @@ class _EnfranchiseMain extends State<EnfranchiseMain> {
             Container(
               alignment: Alignment.centerLeft,
               width: 100,
-              child: new Text(
+              child: Text(
                 "ชื่อ - นามสกุล",
                 style: TextStyle(
                   fontSize: 14,
@@ -1020,7 +1022,7 @@ class _EnfranchiseMain extends State<EnfranchiseMain> {
             ),
             Container(
               alignment: Alignment.centerLeft,
-              child: new Text(
+              child: Text(
                 '   ${txtFirstName.text} ${txtLastName.text}',
                 style: TextStyle(
                   fontSize: 14,
@@ -1037,7 +1039,7 @@ class _EnfranchiseMain extends State<EnfranchiseMain> {
             Container(
               alignment: Alignment.centerLeft,
               width: 100,
-              child: new Text(
+              child: Text(
                 "เบอร์โทรศัพท์",
                 style: TextStyle(
                   fontSize: 14,
@@ -1049,7 +1051,7 @@ class _EnfranchiseMain extends State<EnfranchiseMain> {
             ),
             Container(
               alignment: Alignment.centerLeft,
-              child: new Text(
+              child: Text(
                 '   ${txtPhone.text}',
                 style: TextStyle(
                   fontSize: 14,
@@ -1066,7 +1068,7 @@ class _EnfranchiseMain extends State<EnfranchiseMain> {
             Container(
               alignment: Alignment.centerLeft,
               width: 100,
-              child: new Text(
+              child: Text(
                 "อีเมล",
                 style: TextStyle(
                   fontSize: 14,
@@ -1078,7 +1080,7 @@ class _EnfranchiseMain extends State<EnfranchiseMain> {
             ),
             Container(
               alignment: Alignment.centerLeft,
-              child: new Text(
+              child: Text(
                 '   ${txtEmail.text}',
                 style: TextStyle(
                   fontSize: 14,
@@ -1095,7 +1097,7 @@ class _EnfranchiseMain extends State<EnfranchiseMain> {
             Container(
               alignment: Alignment.centerLeft,
               width: 100,
-              child: new Text(
+              child: Text(
                 "ช่วงอายุ",
                 style: TextStyle(
                   fontSize: 14,
@@ -1107,7 +1109,7 @@ class _EnfranchiseMain extends State<EnfranchiseMain> {
             ),
             Container(
               alignment: Alignment.centerLeft,
-              child: new Text(
+              child: Text(
                 '   $_selectedAgeRange',
                 style: TextStyle(
                   fontSize: 14,
@@ -1124,7 +1126,7 @@ class _EnfranchiseMain extends State<EnfranchiseMain> {
             Container(
               alignment: Alignment.centerLeft,
               width: 100,
-              child: new Text(
+              child: Text(
                 "อาชีพ",
                 style: TextStyle(
                   fontSize: 14,
@@ -1136,7 +1138,7 @@ class _EnfranchiseMain extends State<EnfranchiseMain> {
             ),
             Container(
               alignment: Alignment.centerLeft,
-              child: new Text(
+              child: Text(
                 '   ${txtJob.text}',
                 style: TextStyle(
                   fontSize: 14,
@@ -1153,7 +1155,7 @@ class _EnfranchiseMain extends State<EnfranchiseMain> {
             Container(
               alignment: Alignment.centerLeft,
               width: 100,
-              child: new Text(
+              child: Text(
                 "จังหวัด",
                 style: TextStyle(
                   fontSize: 14,
@@ -1165,7 +1167,7 @@ class _EnfranchiseMain extends State<EnfranchiseMain> {
             ),
             Container(
               alignment: Alignment.centerLeft,
-              child: new Text(
+              child: Text(
                 '   $_selectedProvinceName',
                 style: TextStyle(
                   fontSize: 14,
@@ -1182,7 +1184,7 @@ class _EnfranchiseMain extends State<EnfranchiseMain> {
             Container(
               alignment: Alignment.centerLeft,
               width: 100,
-              child: new Text(
+              child: Text(
                 "วันที่รับสิทธิ์",
                 style: TextStyle(
                   fontSize: 14,
@@ -1194,7 +1196,7 @@ class _EnfranchiseMain extends State<EnfranchiseMain> {
             ),
             Container(
               alignment: Alignment.centerLeft,
-              child: new Text(
+              child: Text(
                 (updateDate ?? '').toString() != ''
                     ? "   ${DateFormat("dd-MM-yyyy").format(DateTime.parse(updateDate.substring(0, 8)))}"
                     : '',
@@ -1213,7 +1215,7 @@ class _EnfranchiseMain extends State<EnfranchiseMain> {
             Container(
               alignment: Alignment.centerLeft,
               width: 100,
-              child: new Text(
+              child: Text(
                 "วันที่หมดอายุ",
                 style: TextStyle(
                   fontSize: 14,
@@ -1225,7 +1227,7 @@ class _EnfranchiseMain extends State<EnfranchiseMain> {
             ),
             Container(
               alignment: Alignment.centerLeft,
-              child: new Text(
+              child: Text(
                 expDate,
                 style: TextStyle(
                   fontSize: 14,
@@ -1244,7 +1246,7 @@ class _EnfranchiseMain extends State<EnfranchiseMain> {
             Container(
               alignment: Alignment.centerLeft,
               width: 100,
-              child: new Text(
+              child: Text(
                 "Code",
                 style: TextStyle(
                   fontSize: 14,
@@ -1319,7 +1321,7 @@ class _EnfranchiseMain extends State<EnfranchiseMain> {
         ),
         SizedBox(height: 20.0),
         Center(
-          child: Container(
+          child: SizedBox(
             width: 170,
             height: 150,
             child: Image.asset(
@@ -1341,7 +1343,7 @@ class _EnfranchiseMain extends State<EnfranchiseMain> {
                 );
               }
             },
-            child: Container(
+            child: SizedBox(
               width: 170,
               height: 150,
               child: Image.asset(
@@ -1524,14 +1526,14 @@ class _EnfranchiseMain extends State<EnfranchiseMain> {
                 ),
               ),
               selectedType == "1"
-                  ? Container(
+                  ? SizedBox(
                     height: (MediaQuery.of(context).size.height / 100) * 33,
                     child: Column(
                       children: [
                         Container(
                           padding: EdgeInsets.only(top: 30, bottom: 40),
                           alignment: Alignment.center,
-                          child: new Text(
+                          child: Text(
                             '$ref_code',
                             style: TextStyle(
                               fontSize: 35.00,
@@ -1577,7 +1579,7 @@ class _EnfranchiseMain extends State<EnfranchiseMain> {
                       ],
                     ),
                   )
-                  : Container(
+                  : SizedBox(
                     height: (MediaQuery.of(context).size.height / 100) * 33,
                     child: Column(
                       children: [
@@ -1593,7 +1595,7 @@ class _EnfranchiseMain extends State<EnfranchiseMain> {
                               width:
                                   (MediaQuery.of(context).size.width / 100) *
                                   37,
-                              child: new Text(
+                              child: Text(
                                 "ชื่อ - นามสกุล",
                                 style: TextStyle(
                                   fontSize: 14,
@@ -1604,7 +1606,7 @@ class _EnfranchiseMain extends State<EnfranchiseMain> {
                               ),
                             ),
                             Container(
-                              child: new Text(
+                              child: Text(
                                 '   ${txtFirstName.text} ${txtLastName.text}',
                                 style: TextStyle(
                                   fontSize: 14,
@@ -1627,7 +1629,7 @@ class _EnfranchiseMain extends State<EnfranchiseMain> {
                               width:
                                   (MediaQuery.of(context).size.width / 100) *
                                   37,
-                              child: new Text(
+                              child: Text(
                                 "เบอร์โทรศัพท์",
                                 style: TextStyle(
                                   fontSize: 14,
@@ -1638,7 +1640,7 @@ class _EnfranchiseMain extends State<EnfranchiseMain> {
                               ),
                             ),
                             Container(
-                              child: new Text(
+                              child: Text(
                                 '   ${txtPhone.text}',
                                 style: TextStyle(
                                   fontSize: 14,
@@ -1661,7 +1663,7 @@ class _EnfranchiseMain extends State<EnfranchiseMain> {
                               width:
                                   (MediaQuery.of(context).size.width / 100) *
                                   37,
-                              child: new Text(
+                              child: Text(
                                 "อีเมล",
                                 style: TextStyle(
                                   fontSize: 14,
@@ -1672,7 +1674,7 @@ class _EnfranchiseMain extends State<EnfranchiseMain> {
                               ),
                             ),
                             Container(
-                              child: new Text(
+                              child: Text(
                                 '   ${txtEmail.text}',
                                 style: TextStyle(
                                   fontSize: 14,
@@ -1695,7 +1697,7 @@ class _EnfranchiseMain extends State<EnfranchiseMain> {
                               width:
                                   (MediaQuery.of(context).size.width / 100) *
                                   37,
-                              child: new Text(
+                              child: Text(
                                 "ช่วงอายุ",
                                 style: TextStyle(
                                   fontSize: 14,
@@ -1706,7 +1708,7 @@ class _EnfranchiseMain extends State<EnfranchiseMain> {
                               ),
                             ),
                             Container(
-                              child: new Text(
+                              child: Text(
                                 '   $_selectedAgeRange',
                                 style: TextStyle(
                                   fontSize: 14,
@@ -1729,7 +1731,7 @@ class _EnfranchiseMain extends State<EnfranchiseMain> {
                               width:
                                   (MediaQuery.of(context).size.width / 100) *
                                   37,
-                              child: new Text(
+                              child: Text(
                                 "อาชีพ",
                                 style: TextStyle(
                                   fontSize: 14,
@@ -1740,7 +1742,7 @@ class _EnfranchiseMain extends State<EnfranchiseMain> {
                               ),
                             ),
                             Container(
-                              child: new Text(
+                              child: Text(
                                 '   ${txtJob.text}',
                                 style: TextStyle(
                                   fontSize: 14,
@@ -1763,7 +1765,7 @@ class _EnfranchiseMain extends State<EnfranchiseMain> {
                               width:
                                   (MediaQuery.of(context).size.width / 100) *
                                   37,
-                              child: new Text(
+                              child: Text(
                                 "จังหวัด",
                                 style: TextStyle(
                                   fontSize: 14,
@@ -1774,7 +1776,7 @@ class _EnfranchiseMain extends State<EnfranchiseMain> {
                               ),
                             ),
                             Container(
-                              child: new Text(
+                              child: Text(
                                 '   $_selectedProvinceName',
                                 style: TextStyle(
                                   fontSize: 14,
@@ -1797,7 +1799,7 @@ class _EnfranchiseMain extends State<EnfranchiseMain> {
                               width:
                                   (MediaQuery.of(context).size.width / 100) *
                                   37,
-                              child: new Text(
+                              child: Text(
                                 "วันที่รับสิทธิ์",
                                 style: TextStyle(
                                   fontSize: 14,
@@ -1807,16 +1809,14 @@ class _EnfranchiseMain extends State<EnfranchiseMain> {
                                 ),
                               ),
                             ),
-                            Container(
-                              child: new Text(
-                                (updateDate ?? '').toString() != ''
-                                    ? "   ${DateFormat("dd-MM-yyyy").format(DateTime.parse(updateDate.substring(0, 8)))}"
-                                    : '',
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontFamily: 'Kanit',
-                                  color: Colors.black,
-                                ),
+                            Text(
+                              (updateDate).toString() != ''
+                                  ? "   ${DateFormat("dd-MM-yyyy").format(DateTime.parse(updateDate.substring(0, 8)))}"
+                                  : '',
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontFamily: 'Kanit',
+                                color: Colors.black,
                               ),
                             ),
                           ],

@@ -90,7 +90,10 @@ class _UserInformationPageState extends State<UserInformationPage> {
                                       padding: EdgeInsets.all(10),
                                       child: Image.asset(
                                         'assets/images/user_not_found.png',
-                                        color: Theme.of(context).colorScheme.secondary,
+                                        color:
+                                            Theme.of(
+                                              context,
+                                            ).colorScheme.secondary,
                                       ),
                                     ),
                           ),
@@ -201,7 +204,7 @@ class _UserInformationPageState extends State<UserInformationPage> {
 
   _read() async {
     //read profile
-    var profileCode = await storage.read(key: 'profileCode9');
+    var profileCode = await storage.read(key: 'profileCode10');
 
     categorySocial = await storage.read(key: 'categorySocial') ?? '';
 

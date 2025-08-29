@@ -33,7 +33,7 @@ textField(
       controller: model,
       enabled: enabled,
       style: TextStyle(
-        // color: Color(0xFFFFFFFF),
+        color: Color(0xFFFFFFFF),
         fontWeight: FontWeight.normal,
         fontFamily: 'Kanit',
         fontSize: 15.00,
@@ -131,12 +131,12 @@ textFieldLogin({
       obscureText: isPassword ? visibility : false,
       controller: model,
       onChanged: (String value) {
-        onChanged?.call(value); 
+        onChanged?.call(value);
       },
       enabled: enabled,
       cursorColor: Color(0xFF216DA6),
       style: TextStyle(
-        // color: Colors.white,
+        color: Colors.white,
         fontWeight: FontWeight.normal,
         fontFamily: 'Kanit',
         fontSize: 15.00,
@@ -183,7 +183,7 @@ textFieldRegister({
       obscureText: isPassword ? visibility : false,
       controller: model,
       onChanged: (String value) {
-        onChanged?.call(value); 
+        onChanged?.call(value);
       },
       enabled: enabled,
       cursorColor: Color(0xFF216DA6),

@@ -39,7 +39,7 @@ class _ContactListCategory extends State<ContactListCategory> {
   }
 
   _read() async {
-    // var profileCode = await storage.read(key: 'profileCode9');
+    // var profileCode = await storage.read(key: 'profileCode10');
     // if (profileCode != '' && profileCode != null) {
     setState(() {
       _futureCategoryContact = postDio('${contactCategoryApi}read', {
@@ -50,7 +50,7 @@ class _ContactListCategory extends State<ContactListCategory> {
       _futureBanner = postDio('${contactBannerApi}read', {
         'skip': 0,
         'limit': 50,
-        'contactPage': true
+        'contactPage': true,
         // 'profileCode': profileCode,
       });
     });
@@ -93,8 +93,13 @@ class _ContactListCategory extends State<ContactListCategory> {
             children: [
               CarouselBanner(
                 model: _futureBanner,
-                nav: (String path, String action, dynamic model, String code,
-                    String urlGallery) {
+                nav: (
+                  String path,
+                  String action,
+                  dynamic model,
+                  String code,
+                  String urlGallery,
+                ) {
                   if (action == 'out') {
                     launchInWebViewWithJavaScript(path);
                     // launchURL(path);
@@ -102,12 +107,13 @@ class _ContactListCategory extends State<ContactListCategory> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => CarouselForm(
-                          code: code,
-                          model: model,
-                          url: contactBannerApi,
-                          urlGallery: bannerGalleryApi,
-                        ),
+                        builder:
+                            (context) => CarouselForm(
+                              code: code,
+                              model: model,
+                              url: contactBannerApi,
+                              urlGallery: bannerGalleryApi,
+                            ),
                       ),
                     );
                   }

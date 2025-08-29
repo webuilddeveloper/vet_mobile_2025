@@ -34,14 +34,15 @@ class _NewsList extends State<NewsList> {
       'imageUrl': '',
       'createDate': '',
       'userList': [
-        {'imageUrl': '', 'firstName': '', 'lastName': ''}
-      ]
-    }
+        {'imageUrl': '', 'firstName': '', 'lastName': ''},
+      ],
+    },
   ];
   bool showLoadingItem = true;
 
-  RefreshController _refreshController =
-      RefreshController(initialRefresh: false);
+  RefreshController _refreshController = RefreshController(
+    initialRefresh: false,
+  );
 
   // final ScrollController _controller = ScrollController();
   @override
@@ -59,13 +60,13 @@ class _NewsList extends State<NewsList> {
       'skip': 0,
       'limit': _limit,
       "category": category,
-      "keySearch": keySearch
+      "keySearch": keySearch,
     });
 
-    futureCategory = postCategory(
-      '${newsCategoryApi}read',
-      {'skip': 0, 'limit': 100},
-    );
+    futureCategory = postCategory('${newsCategoryApi}read', {
+      'skip': 0,
+      'limit': 100,
+    });
   }
 
   void _onLoading() async {
@@ -76,7 +77,7 @@ class _NewsList extends State<NewsList> {
         'skip': 0,
         'limit': _limit,
         "category": category,
-        "keySearch": keySearch
+        "keySearch": keySearch,
       });
     });
 
@@ -121,6 +122,7 @@ class _NewsList extends State<NewsList> {
                 CategorySelector(
                   model: futureCategory,
                   onChange: (String val) {
+                    print('CategorySelector val = $val');
                     setData(val, keySearch!);
                   },
                 ),
@@ -132,9 +134,7 @@ class _NewsList extends State<NewsList> {
                   },
                 ),
                 SizedBox(height: 10),
-                Expanded(
-                  child: buildNewsList(),
-                )
+                Expanded(child: buildNewsList()),
               ],
             ),
           ),
@@ -185,7 +185,7 @@ class _NewsList extends State<NewsList> {
                   'skip': 0,
                   'limit': _limit,
                   "category": category,
-                  "keySearch": keySearch
+                  "keySearch": keySearch,
                 });
               });
             },
@@ -193,7 +193,7 @@ class _NewsList extends State<NewsList> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(Icons.refresh, size: 50.0, color: Colors.blue),
-                Text('ลองใหม่อีกครั้ง')
+                Text('ลองใหม่อีกครั้ง'),
               ],
             ),
           );
@@ -233,21 +233,19 @@ class _NewsList extends State<NewsList> {
   }
 
   setData(String category, String keySearkch) {
-    setState(
-      () {
-        if (keySearch != "") {
-          showLoadingItem = true;
-        }
-        keySearch = keySearkch;
-        _limit = 10;
-        futureModel = postDio('${newsApi}read', {
-          'skip': 0,
-          'limit': _limit,
-          "category": category,
-          "keySearch": keySearch
-        });
-      },
-    );
+    setState(() {
+      if (keySearch != "") {
+        showLoadingItem = true;
+      }
+      keySearch = keySearkch;
+      _limit = 10;
+      futureModel = postDio('${newsApi}read', {
+        'skip': 0,
+        'limit': _limit,
+        "category": category,
+        "keySearch": keySearch,
+      });
+    });
   }
 
   cardTop(model) {
@@ -256,10 +254,7 @@ class _NewsList extends State<NewsList> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => NewsForm(
-              code: model['code'],
-              model: model,
-            ),
+            builder: (context) => NewsForm(code: model['code'], model: model),
           ),
         );
       },
@@ -291,14 +286,15 @@ class _NewsList extends State<NewsList> {
                   children: [
                     Expanded(
                       child: Container(
-                          height: 205,
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(5),
-                            child: Image.network(
-                              '${model['imageUrl']}',
-                              fit: BoxFit.contain,
-                            ),
-                          )),
+                        height: 205,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(5),
+                          child: Image.network(
+                            '${model['imageUrl']}',
+                            fit: BoxFit.contain,
+                          ),
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -328,13 +324,8 @@ class _NewsList extends State<NewsList> {
                     ),
                   ],
                 ),
-                SizedBox(
-                  height: 15,
-                ),
-                Container(
-                  color: Color(0xFF707070).withOpacity(0.5),
-                  height: 1,
-                ),
+                SizedBox(height: 15),
+                Container(color: Color(0xFF707070).withOpacity(0.5), height: 1),
                 Row(
                   children: [
                     Container(
@@ -379,7 +370,8 @@ class _NewsList extends State<NewsList> {
                                   '${model['createDate']}' != null
                                       ? 'วันที่ ' +
                                           dateStringToDate(
-                                              '${model['createDate']}')
+                                            '${model['createDate']}',
+                                          )
                                       : '',
                                   style: TextStyle(
                                     fontSize: 8,
@@ -409,10 +401,7 @@ class _NewsList extends State<NewsList> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => NewsForm(
-              code: model['code'],
-              model: model,
-            ),
+            builder: (context) => NewsForm(code: model['code'], model: model),
           ),
         );
       },
@@ -492,8 +481,9 @@ class _NewsList extends State<NewsList> {
                                     SizedBox(width: 5),
                                     Expanded(
                                       child: Container(
-                                        padding:
-                                            EdgeInsets.symmetric(horizontal: 5),
+                                        padding: EdgeInsets.symmetric(
+                                          horizontal: 5,
+                                        ),
                                         child: Column(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
@@ -512,7 +502,8 @@ class _NewsList extends State<NewsList> {
                                               '${model['createDate']}' != null
                                                   ? 'วันที่ ' +
                                                       dateStringToDate(
-                                                          '${model['createDate']}')
+                                                        '${model['createDate']}',
+                                                      )
                                                   : '',
                                               style: TextStyle(
                                                 fontSize: 10,

@@ -7,14 +7,10 @@ import 'package:vet/shared/api_provider.dart';
 
 // ignore: must_be_immutable
 class NewsForm extends StatefulWidget {
-  NewsForm({
-    Key? key,
-    this.code,
-    this.model,
-  }) : super(key: key);
+  NewsForm({Key? key, this.code, this.model}) : super(key: key);
 
   final String? code;
-  final dynamic? model;
+  final dynamic model;
 
   @override
   _NewsForm createState() => _NewsForm();
@@ -24,8 +20,9 @@ class _NewsForm extends State<NewsForm> {
   Comment? comment;
   int? _limit;
 
-  RefreshController _refreshController =
-      RefreshController(initialRefresh: false);
+  RefreshController _refreshController = RefreshController(
+    initialRefresh: false,
+  );
 
   void _onLoading() async {
     setState(() {
@@ -34,8 +31,11 @@ class _NewsForm extends State<NewsForm> {
       comment = Comment(
         code: widget.code,
         url: newsCommentApi,
-        model: postDio('${newsCommentApi}read',
-            {'skip': 0, 'limit': _limit, 'code': widget.code}),
+        model: postDio('${newsCommentApi}read', {
+          'skip': 0,
+          'limit': _limit,
+          'code': widget.code,
+        }),
         limit: _limit,
       );
     });
@@ -55,8 +55,11 @@ class _NewsForm extends State<NewsForm> {
     comment = Comment(
       code: widget.code,
       url: newsCommentApi,
-      model: postDio('${newsCommentApi}read',
-          {'skip': 0, 'limit': _limit, 'code': widget.code}),
+      model: postDio('${newsCommentApi}read', {
+        'skip': 0,
+        'limit': _limit,
+        'code': widget.code,
+      }),
       limit: _limit,
     );
 
@@ -116,9 +119,7 @@ class _NewsForm extends State<NewsForm> {
                       Positioned(
                         right: 0,
                         top: statusBarHeight + 5,
-                        child: Container(
-                          child: buttonCloseBack(context),
-                        ),
+                        child: Container(child: buttonCloseBack(context)),
                       ),
                     ],
                   ),
@@ -133,9 +134,10 @@ class _NewsForm extends State<NewsForm> {
   }
 
   sendReportCategory(String category) {
-    postCategory(
-      '${newsCategoryApi}read',
-      {'skip': 0, 'limit': 1, 'code': category},
-    );
+    postCategory('${newsCategoryApi}read', {
+      'skip': 0,
+      'limit': 1,
+      'code': category,
+    });
   }
 }

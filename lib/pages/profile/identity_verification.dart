@@ -361,7 +361,7 @@ class _IdentityVerificationPageState extends State<IdentityVerificationPage> {
   }
 
   Future<dynamic> getUser() async {
-    var profileCode = await storage.read(key: 'profileCode9');
+    var profileCode = await storage.read(key: 'profileCode10');
     print("profileCode");
     print(profileCode);
     if (profileCode != '') {
@@ -659,7 +659,7 @@ class _IdentityVerificationPageState extends State<IdentityVerificationPage> {
     // var user = json.decode(value);
 
     dynamic user = {};
-    var profileCode = await storage.read(key: 'profileCode9');
+    var profileCode = await storage.read(key: 'profileCode10');
     if (profileCode != '' && profileCode != null) user['code'] = profileCode;
     user['imageUrl'] = _imageUrl ?? '';
     // user['prefixName'] = _selectedPrefixName ?? '';

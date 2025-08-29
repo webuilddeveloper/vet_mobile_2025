@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:vet/component/comment.dart';
@@ -7,18 +9,18 @@ import 'package:vet/shared/api_provider.dart';
 
 // ignore: must_be_immutable
 class EventCalendarForm extends StatefulWidget {
-  EventCalendarForm({
-    Key? key,
+  const EventCalendarForm({
+    super.key,
     this.url,
     this.code,
     this.model,
     this.urlComment,
     this.urlGallery,
-  }) : super(key: key);
+  });
 
   final String? url;
   final String? code;
-  final dynamic? model;
+  final dynamic model;
   final String? urlComment;
   final String? urlGallery;
 
@@ -30,8 +32,9 @@ class _EventCalendarForm extends State<EventCalendarForm> {
   late Comment comment;
   int? _limit;
 
-  RefreshController _refreshController =
-      RefreshController(initialRefresh: false);
+  RefreshController _refreshController = RefreshController(
+    initialRefresh: false,
+  );
 
   void _onLoading() async {
     setState(() {
@@ -40,8 +43,11 @@ class _EventCalendarForm extends State<EventCalendarForm> {
       comment = Comment(
         code: widget.code,
         url: eventCalendarCommentApi,
-        model: postDio('${eventCalendarCommentApi}read',
-            {'skip': 0, 'limit': _limit, 'code': widget.code}),
+        model: postDio('${eventCalendarCommentApi}read', {
+          'skip': 0,
+          'limit': _limit,
+          'code': widget.code,
+        }),
         limit: _limit,
       );
     });
@@ -60,8 +66,11 @@ class _EventCalendarForm extends State<EventCalendarForm> {
     comment = Comment(
       code: widget.code,
       url: eventCalendarCommentApi,
-      model: post('${eventCalendarCommentApi}read',
-          {'skip': 0, 'limit': _limit, 'code': widget.code}),
+      model: post('${eventCalendarCommentApi}read', {
+        'skip': 0,
+        'limit': _limit,
+        'code': widget.code,
+      }),
       limit: _limit,
     );
 
@@ -121,9 +130,7 @@ class _EventCalendarForm extends State<EventCalendarForm> {
                     Positioned(
                       left: 0,
                       top: statusBarHeight + 5,
-                      child: Container(
-                        child: buttonCloseBack(context),
-                      ),
+                      child: Container(child: buttonCloseBack(context)),
                     ),
                   ],
                   // overflow: Overflow.clip,

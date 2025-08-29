@@ -26,8 +26,9 @@ class _PollList extends State<PollList> {
   int _limit = 0;
   late Future<dynamic> _futureCategory;
 
-  RefreshController _refreshController =
-      RefreshController(initialRefresh: false);
+  RefreshController _refreshController = RefreshController(
+    initialRefresh: false,
+  );
 
   // final ScrollController _controller = ScrollController();
   @override
@@ -45,18 +46,15 @@ class _PollList extends State<PollList> {
   }
 
   void _onLoading() async {
-    // var profileCode = await storage.read(key: 'profileCode9');
+    // var profileCode = await storage.read(key: 'profileCode10');
     // if (profileCode != '' && profileCode != null) {
     setState(() {
       _limit = _limit + 10;
-      _futureCategory = service.postCategory(
-        '${service.pollCategoryApi}read',
-        {
-          'skip': 0,
-          'limit': 100,
-          // 'profileCode': profileCode,
-        },
-      );
+      _futureCategory = service.postCategory('${service.pollCategoryApi}read', {
+        'skip': 0,
+        'limit': 100,
+        // 'profileCode': profileCode,
+      });
 
       poll = new PollListVertical(
         site: "DDPM",
@@ -64,7 +62,7 @@ class _PollList extends State<PollList> {
           'skip': 0,
           'limit': _limit,
           'category': category,
-          'keySearch': keySearch
+          'keySearch': keySearch,
           // 'profileCode': profileCode,
         }),
         titleHome: widget.title ?? '',
@@ -130,11 +128,7 @@ class _PollList extends State<PollList> {
                 CategorySelector(
                   model: _futureCategory,
                   onChange: (String val) {
-                    setState(
-                      () => {
-                        category = val,
-                      },
-                    );
+                    setState(() => {category = val});
                     _onLoading();
                   },
                 ),
@@ -143,11 +137,7 @@ class _PollList extends State<PollList> {
                   show: hideSearch,
                   onKeySearchChange: (String val) {
                     // pollList(context, service.postDio('${service.pollApi}read', {'skip': 0, 'limit': 100,"keySearch": val}),'');
-                    setState(
-                      () => {
-                        keySearch = val,
-                      },
-                    );
+                    setState(() => {keySearch = val});
                     _onLoading();
                   },
                 ),

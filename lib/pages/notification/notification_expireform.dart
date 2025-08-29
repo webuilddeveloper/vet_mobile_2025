@@ -42,7 +42,7 @@ class _NotificationExpireForm extends State<NotificationExpireForm> {
   }
 
   _loading() async {
-    var profileCode = await storage.read(key: 'profileCode9');
+    var profileCode = await storage.read(key: 'profileCode10');
     // if (profileCode != '' && profileCode != null) {
     setState(() {
       _limit = 10;
@@ -91,16 +91,12 @@ class _NotificationExpireForm extends State<NotificationExpireForm> {
                 Positioned(
                   left: 0,
                   top: (height * 0.5 / 100),
-                  child: Container(
-                    child: buttonCloseBack(context),
-                  ),
+                  child: Container(child: buttonCloseBack(context)),
                 ),
               ],
               // overflow: Overflow.clip,
             ),
-            SizedBox(
-              height: 50,
-            )
+            SizedBox(height: 50),
             // ),
             // widget.urlComment != '' ? comment : Container(),
           ],
@@ -114,15 +110,10 @@ class _NotificationExpireForm extends State<NotificationExpireForm> {
       shrinkWrap: true, // 1st add
       physics: ClampingScrollPhysics(), // 2nd
       children: [
-        SizedBox(
-          height: 5.0,
-        ),
+        SizedBox(height: 5.0),
         Container(
           // color: Colors.green,
-          padding: EdgeInsets.only(
-            right: 10.0,
-            left: 10.0,
-          ),
+          padding: EdgeInsets.only(right: 10.0, left: 10.0),
           margin: EdgeInsets.only(left: 10.0, top: 60.0),
           child: Text(
             '${model['title']}',
@@ -136,43 +127,35 @@ class _NotificationExpireForm extends State<NotificationExpireForm> {
         ),
         model["category"] == "expireDate"
             ? Container(
-                // color: Colors.green,
-                padding: EdgeInsets.only(
-                  right: 10.0,
-                  left: 10.0,
+              // color: Colors.green,
+              padding: EdgeInsets.only(right: 10.0, left: 10.0),
+              margin: EdgeInsets.only(left: 10.0, top: 15.0),
+              child: Text(
+                'ใบอนุญาตหมดอายุวันที่ $reNewTo เหลือเวลา $totalExpireDate วัน',
+                style: TextStyle(
+                  fontSize: 13.0,
+                  fontFamily: 'Kanit',
+                  fontWeight: FontWeight.normal,
                 ),
-                margin: EdgeInsets.only(left: 10.0, top: 15.0),
-                child: Text(
-                  'ใบอนุญาตหมดอายุวันที่ $reNewTo เหลือเวลา $totalExpireDate วัน',
-                  style: TextStyle(
-                    fontSize: 13.0,
-                    fontFamily: 'Kanit',
-                    fontWeight: FontWeight.normal,
-                  ),
-                ),
-              )
+              ),
+            )
             : Container(),
         model["category"] == "examPage" || model["category"] == "resultPage"
             ? Container(
-                // color: Colors.green,
-                padding: EdgeInsets.only(
-                  right: 10.0,
-                  left: 10.0,
+              // color: Colors.green,
+              padding: EdgeInsets.only(right: 10.0, left: 10.0),
+              margin: EdgeInsets.only(left: 10.0, top: 15.0),
+              child: Text(
+                model["description"],
+                style: TextStyle(
+                  fontSize: 13.0,
+                  fontFamily: 'Kanit',
+                  fontWeight: FontWeight.normal,
                 ),
-                margin: EdgeInsets.only(left: 10.0, top: 15.0),
-                child: Text(
-                  model["description"],
-                  style: TextStyle(
-                    fontSize: 13.0,
-                    fontFamily: 'Kanit',
-                    fontWeight: FontWeight.normal,
-                  ),
-                ),
-              )
+              ),
+            )
             : Container(),
-        SizedBox(
-          height: 10.0,
-        ),
+        SizedBox(height: 10.0),
         Container(
           margin: EdgeInsets.symmetric(vertical: 5),
           color: Color(0xFF707070).withOpacity(0.5),
@@ -182,10 +165,7 @@ class _NotificationExpireForm extends State<NotificationExpireForm> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Padding(
-              padding: const EdgeInsets.only(
-                right: 10,
-                left: 10,
-              ),
+              padding: const EdgeInsets.only(right: 10, left: 10),
               child: Row(
                 children: [
                   Container(

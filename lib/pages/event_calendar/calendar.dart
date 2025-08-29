@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api, deprecated_member_use, prefer_interpolation_to_compose_strings
+
 import 'dart:collection';
 import 'dart:convert';
 import 'package:intl/intl.dart';
@@ -10,16 +12,17 @@ import 'package:vet/shared/api_provider.dart';
 import 'package:vet/shared/extension.dart';
 
 class CalendarPage extends StatefulWidget {
+  const CalendarPage({super.key});
+
   @override
   _CalendarPageState createState() => _CalendarPageState();
 }
 
 class _CalendarPageState extends State<CalendarPage>
     with TickerProviderStateMixin {
-  final storage = new FlutterSecureStorage();
+  final storage = FlutterSecureStorage();
   late ValueNotifier<List<dynamic>> _selectedEvents;
-  late Map<DateTime, List> _events;
-  CalendarFormat _calendarFormat = CalendarFormat.month;
+  final CalendarFormat _calendarFormat = CalendarFormat.month;
   RangeSelectionMode _rangeSelectionMode =
       RangeSelectionMode
           .toggledOff; // Can be toggled on/off by longpressing a date
@@ -65,8 +68,6 @@ class _CalendarPageState extends State<CalendarPage>
     });
     if (result['status'] == 'S') {
       objectData = result['objectData'];
-
-      _events = {};
 
       for (int i = 0; i < objectData.length; i++) {
         if (objectData[i]['items'].length > 0) {

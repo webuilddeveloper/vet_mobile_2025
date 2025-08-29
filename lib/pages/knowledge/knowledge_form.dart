@@ -45,7 +45,7 @@ class _KnowledgeDetailPageState extends State<KnowledgeForm> {
   }
 
   void _onLoading() async {
-    // var profileCode = await storage.read(key: 'profileCode9');
+    // var profileCode = await storage.read(key: 'profileCode10');
     // if (profileCode != '' && profileCode != null) {
     setState(() {
       examination = new ExaminationListVertical(

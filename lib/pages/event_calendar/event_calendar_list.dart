@@ -201,9 +201,9 @@ class _EventCalendarList extends State<EventCalendarList> {
       model: post('${eventCalendarApi}read', {
         'skip': 0,
         'limit': _limit,
-        'keySearch': keySearch != null ? keySearch : '',
-        'isHighlight': isHighlight != null ? isHighlight : false,
-        'category': categorySelected != null ? categorySelected : '',
+        'keySearch': keySearch,
+        'isHighlight': isHighlight,
+        'category': categorySelected,
       }),
       urlGallery: eventCalendarGalleryApi,
       urlComment: eventCalendarCommentApi,
@@ -219,9 +219,9 @@ class _EventCalendarList extends State<EventCalendarList> {
         model: post('${eventCalendarApi}read', {
           'skip': 0,
           'limit': _limit,
-          'keySearch': keySearch ?? '',
-          'isHighlight': isHighlight ?? false,
-          'category': categorySelected ?? '',
+          'keySearch': keySearch,
+          'isHighlight': isHighlight,
+          'category': categorySelected,
         }),
         urlGallery: eventCalendarGalleryApi,
         urlComment: eventCalendarCommentApi,
@@ -235,7 +235,7 @@ class _EventCalendarList extends State<EventCalendarList> {
   }
 
   _read() async {
-    // var profileCode = await storage.read(key: 'profileCode9');
+    // var profileCode = await storage.read(key: 'profileCode10');
     // if (profileCode != '' && profileCode != null) {
     var body = json.encode({
       "permission": "all",
