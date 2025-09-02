@@ -983,7 +983,7 @@ class _LoginAndRegisterPageState extends State<LoginAndRegisterPage> {
             child: IconButton(
               onPressed: () => _buildLoginApple(),
               icon: Image.asset("assets/apple_circle.png", width: 45),
-              padding: EdgeInsets.all(5.0),
+              padding: EdgeInsets.all(10.0),
             ),
           ),
         Expanded(
@@ -991,7 +991,7 @@ class _LoginAndRegisterPageState extends State<LoginAndRegisterPage> {
           child: IconButton(
             onPressed: () => _buildLoginFacebook(),
             icon: Image.asset("assets/facebook_circle.png", width: 45),
-            padding: EdgeInsets.all(5.0),
+            padding: EdgeInsets.all(10.0),
           ),
         ),
         Expanded(
@@ -999,7 +999,7 @@ class _LoginAndRegisterPageState extends State<LoginAndRegisterPage> {
           child: IconButton(
             onPressed: () => _buildLoginGoogle(),
             icon: Image.asset("assets/google_circle.png", width: 45),
-            padding: EdgeInsets.all(5.0),
+            padding: EdgeInsets.all(10.0),
           ),
         ),
         Expanded(
@@ -1007,7 +1007,7 @@ class _LoginAndRegisterPageState extends State<LoginAndRegisterPage> {
           child: IconButton(
             onPressed: () => _buildLoginLine(),
             icon: Image.asset("assets/line_circle.png", width: 45),
-            padding: EdgeInsets.all(5.0),
+            padding: EdgeInsets.all(10.0),
           ),
         ),
       ],
