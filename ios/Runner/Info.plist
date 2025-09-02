@@ -109,8 +109,6 @@
 	<string>สัตวแพทยสภา Siri Usage</string>
 	<key>NSSpeechRecognitionUsageDescription</key>
 	<string>สัตวแพทยสภา Speech Recognition Usage</string>
-	<key>NSUserTrackingUsageDescription</key>
-	<string>สัตวแพทยสภา ต้องการใช้ข้อมูลของคุณเพื่อปรับปรุงประสบการณ์ผู้ใช้</string>
 	<key>NSVideoSubscriberAccountUsageDescription</key>
 	<string>สัตวแพทยสภา Video Subscribe Usage</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
