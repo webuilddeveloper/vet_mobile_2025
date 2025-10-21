@@ -70,7 +70,7 @@ const reporterBannerApi = '${server}m/Banner/reporter/';
 
 //teacher
 //const teacherApi = 'http://122.155.223.63/td-vet-api/veterinary/';
-const teacherApi = 'http://vetweb.we-builds.com/vet-api/veterinary/';
+const teacherApi = 'https://vetcouncil.or.th/vet-api/veterinary/';
 const teacherCategoryApi =
     'http://122.155.223.63/td-opec-api/' + 'm/fund/category/';
 const teacherCommentApi =
