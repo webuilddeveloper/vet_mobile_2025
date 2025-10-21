@@ -4,9 +4,9 @@ import 'package:vet/shared/api_provider.dart';
 
 class CategorySelector extends StatefulWidget {
   CategorySelector({Key? key, this.site, this.model, this.onChange})
-      : super(key: key);
+    : super(key: key);
 
-//  final VoidCallback onTabCategory;
+  //  final VoidCallback onTabCategory;
   final String? site;
   final Function(String)? onChange;
   final Future<dynamic>? model;
@@ -52,27 +52,33 @@ class _CategorySelectorState extends State<CategorySelector> {
               scrollDirection: Axis.horizontal,
               itemCount: snapshot.data.length,
               itemBuilder: (BuildContext context, int index) {
+                final item = snapshot.data[index];
                 return GestureDetector(
                   onTap: () {
                     FocusScope.of(context).unfocus();
-                    widget.onChange!(snapshot.data[index]['code']);
-                    setState(() {
-                      selectedIndex = index;
-                    });
+                    if (widget.onChange != null) {
+                      widget.onChange!(item['code']);
+                    }
+                    if (mounted) {
+                      setState(() {
+                        selectedIndex = index;
+                      });
+                    }
                   },
                   child: Padding(
-                    padding: EdgeInsets.symmetric(
+                    padding: const EdgeInsets.symmetric(
                       horizontal: 5.0,
                       vertical: 10.0,
                     ),
                     child: Text(
-                      snapshot.data[index]['title'],
+                      item['title'],
                       style: TextStyle(
                         color:
                             index == selectedIndex ? Colors.black : Colors.grey,
-                        decoration: index == selectedIndex
-                            ? TextDecoration.underline
-                            : null,
+                        decoration:
+                            index == selectedIndex
+                                ? TextDecoration.underline
+                                : null,
                         fontSize: 16.0,
                         fontWeight: FontWeight.normal,
                         letterSpacing: 1.2,
@@ -110,9 +116,9 @@ class _CategorySelectorState extends State<CategorySelector> {
 
 class CategorySelectorV2 extends StatefulWidget {
   CategorySelectorV2({Key? key, this.site, this.model, this.onChange})
-      : super(key: key);
+    : super(key: key);
 
-//  final VoidCallback onTabCategory;
+  //  final VoidCallback onTabCategory;
   final String? site;
   final Function(String, String)? onChange;
   final Future<dynamic>? model;
@@ -150,8 +156,10 @@ class _CategorySelectorV2State extends State<CategorySelectorV2> {
                 return GestureDetector(
                   onTap: () {
                     FocusScope.of(context).unfocus();
-                    widget.onChange!(snapshot.data[index]['code'],
-                        snapshot.data[index]['title']);
+                    widget.onChange!(
+                      snapshot.data[index]['code'],
+                      snapshot.data[index]['title'],
+                    );
                     setState(() {
                       selectedIndex = index;
                     });
@@ -163,9 +171,10 @@ class _CategorySelectorV2State extends State<CategorySelectorV2> {
                     ),
                     child: Container(
                       decoration: BoxDecoration(
-                        color: index == selectedIndex
-                            ? Colors.grey.shade200.withOpacity(0.5)
-                            : Colors.transparent,
+                        color:
+                            index == selectedIndex
+                                ? Colors.grey.shade200.withOpacity(0.5)
+                                : Colors.transparent,
                         borderRadius: new BorderRadius.circular(15.0),
                       ),
                       child: Center(
@@ -205,7 +214,7 @@ class CategorySelector2 extends StatefulWidget {
     this.limit,
   }) : super(key: key);
 
-//  final VoidCallback onTabCategory;
+  //  final VoidCallback onTabCategory;
   final String? site;
   final Function(String, String)? onChange;
   final Future<dynamic>? model;
@@ -237,45 +246,50 @@ class _CategorySelector2State extends State<CategorySelector2> {
         // AsyncSnapshot<Your object type>
         if (snapshot.hasData) {
           return Wrap(
-            children: snapshot.data
-                .map<Widget>(
-                  (c) => GestureDetector(
-                    onTap: () {
-                      FocusScope.of(context).unfocus();
-                      widget.onChange!(c['code'], c['title']);
-                      setState(() {
-                        selectedIndex = c['code'];
-                        selectedTitleIndex = c['title'];
-                      });
-                    },
-                    child: Container(
-                      width: 85,
-                      alignment: Alignment.center,
-                      margin: EdgeInsets.only(right: 10, bottom: 10),
-                      decoration: new BoxDecoration(
-                        borderRadius: new BorderRadius.circular(40),
-                        color: c['code'] == selectedIndex
-                            ? Color(0xFFFFFFFF).withOpacity(0.2)
-                            : Colors.transparent,
-                      ),
-                      padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-                      child: Text(
-                        c['title'],
-                        style: TextStyle(
-                          color: Color(0xFFFFFFFF),
-                          // decoration: index == selectedIndex
-                          //     ? TextDecoration.underline
-                          //     : null,
-                          fontSize: 14.0,
-                          fontWeight: FontWeight.normal,
-                          letterSpacing: 1.2,
-                          fontFamily: 'Kanit',
+            children:
+                snapshot.data
+                    .map<Widget>(
+                      (c) => GestureDetector(
+                        onTap: () {
+                          FocusScope.of(context).unfocus();
+                          widget.onChange!(c['code'], c['title']);
+                          setState(() {
+                            selectedIndex = c['code'];
+                            selectedTitleIndex = c['title'];
+                          });
+                        },
+                        child: Container(
+                          width: 85,
+                          alignment: Alignment.center,
+                          margin: EdgeInsets.only(right: 10, bottom: 10),
+                          decoration: new BoxDecoration(
+                            borderRadius: new BorderRadius.circular(40),
+                            color:
+                                c['code'] == selectedIndex
+                                    ? Color(0xFFFFFFFF).withOpacity(0.2)
+                                    : Colors.transparent,
+                          ),
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 5,
+                            vertical: 5,
+                          ),
+                          child: Text(
+                            c['title'],
+                            style: TextStyle(
+                              color: Color(0xFFFFFFFF),
+                              // decoration: index == selectedIndex
+                              //     ? TextDecoration.underline
+                              //     : null,
+                              fontSize: 14.0,
+                              fontWeight: FontWeight.normal,
+                              letterSpacing: 1.2,
+                              fontFamily: 'Kanit',
+                            ),
+                          ),
                         ),
                       ),
-                    ),
-                  ),
-                )
-                .toList(),
+                    )
+                    .toList(),
           );
         } else {
           return Container(
@@ -313,7 +327,7 @@ class CategorySelector2NoAll extends StatefulWidget {
     this.limit,
   }) : super(key: key);
 
-//  final VoidCallback onTabCategory;
+  //  final VoidCallback onTabCategory;
   final String? site;
   final Function(String)? onChange;
   final Future<dynamic>? model;
@@ -332,8 +346,10 @@ class _CategorySelector2StateNoAll extends State<CategorySelector2NoAll> {
 
   @override
   void initState() {
-    res = postDioCategoryWeMartNoAll(
-        widget.path ?? '', {'skip': widget.skip, 'limit': widget.limit});
+    res = postDioCategoryWeMartNoAll(widget.path ?? '', {
+      'skip': widget.skip,
+      'limit': widget.limit,
+    });
     // selectedIndex = widget.code;
     super.initState();
   }
@@ -365,9 +381,10 @@ class _CategorySelector2StateNoAll extends State<CategorySelector2NoAll> {
                     margin: EdgeInsets.only(right: 10),
                     decoration: new BoxDecoration(
                       borderRadius: new BorderRadius.circular(40),
-                      color: snapshot.data[index]['code'] == selectedIndex
-                          ? Color(0xFF3F73E6)
-                          : Colors.transparent,
+                      color:
+                          snapshot.data[index]['code'] == selectedIndex
+                              ? Color(0xFF3F73E6)
+                              : Colors.transparent,
                     ),
                     padding: EdgeInsets.symmetric(
                       horizontal: 7.0,

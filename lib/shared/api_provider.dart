@@ -19,12 +19,14 @@ const versionNumber = 488;
 // const server = "https://782f-125-24-174-253.ap.ngrok.io/";
 // const server = 'http://122.155.223.63/td-vet-api/';
 const server = 'https://vet.we-builds.com/vet-api/';
+const serverWeb = 'http://vetweb.we-builds.com/vet-api/';
+
 const serverUpload = 'https://vet.we-builds.com/vet-document/upload';
 const serverOTP = 'https://portal-otp.smsmkt.com/api/';
 
 const registerApi = '${server}m/register/';
-const newsApi = '${server}m/news/';
-const newsGalleryApi = '${server}m/news/gallery/read';
+const newsApi = '${serverWeb}m/news/';
+const newsGalleryApi = '${serverWeb}m/news/gallery/read';
 const pollApi = '${server}m/poll/';
 const examinationApi = '${server}m/examination/';
 const poiApi = '${server}m/poi/';
@@ -103,7 +105,7 @@ const warningCommentApi = '${server}m/warning/comment/';
 //category
 const knowledgeCategoryApi = '${server}m/knowledge/category/';
 const cooperativeCategoryApi = '${server}m/cooperativeForm/category/';
-const newsCategoryApi = '${server}m/news/category/';
+const newsCategoryApi = '${serverWeb}m/news/category/';
 const privilegeCategoryApi = '${server}m/privilege/category/';
 const contactCategoryApi = '${server}m/contact/category/';
 const welfareCategoryApi = '${server}m/welfare/category/';

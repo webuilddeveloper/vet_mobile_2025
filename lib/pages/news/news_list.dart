@@ -123,7 +123,7 @@ class _NewsList extends State<NewsList> {
                   model: futureCategory,
                   onChange: (String val) {
                     print('CategorySelector val = $val');
-                    setData(val, keySearch!);
+                    setData(val, keySearch ?? "");
                   },
                 ),
                 SizedBox(height: 5),
