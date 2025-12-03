@@ -54,7 +54,7 @@ class _IdentityVerificationPageState extends State<IdentityVerificationPage> {
   late String _selectedSex;
 
   List<dynamic> _itemProvince = [];
-  late String _selectedProvince;
+  String _selectedProvince = "";
 
   List<dynamic> _itemDistrict = [];
   late String _selectedDistrict;
@@ -87,9 +87,9 @@ class _IdentityVerificationPageState extends State<IdentityVerificationPage> {
   DateTime selectedDate = DateTime.now();
   TextEditingController txtDate = TextEditingController();
 
-  late Future<dynamic> futureModel;
+  Future<dynamic> futureModel = Future.value();
 
-  ScrollController scrollController = new ScrollController();
+  ScrollController scrollController = ScrollController();
 
   File? _image;
 
