@@ -396,7 +396,7 @@ class _CheckCreditsList extends State<CheckCreditsList>
                 physics: ScrollPhysics(),
                 shrinkWrap: true,
                 scrollDirection: Axis.vertical,
-                itemCount: model.length,
+                itemCount: model['combined_data'].length,
                 itemBuilder: (context, index) {
                   return InkWell(
                     onTap: () {
