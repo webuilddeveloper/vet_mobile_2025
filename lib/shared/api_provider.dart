@@ -384,12 +384,12 @@ upload(File file) async {
   }
 }
 
-createStorageApp({dynamic model, String? category}) {
+createStorageApp({dynamic model, String? category}) async {
   final storage = new FlutterSecureStorage();
 
   storage.write(key: 'profileCategory', value: category);
 
-  storage.write(key: 'profileCode10', value: model['code']);
+  await storage.write(key: 'profileCode10', value: model['code']);
 
   storage.write(key: 'profileImageUrl', value: model['imageUrl']);
 

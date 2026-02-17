@@ -83,7 +83,6 @@ class _TeacherListVertical extends State<TeacherListVertical> {
   }
 
   card(dynamic model) {
-     print('----- card ----- ' + model[0].toString());
     double width = MediaQuery.of(context).size.width;
     return Container(
       color: Colors.transparent,
@@ -194,7 +193,7 @@ class _TeacherListVertical extends State<TeacherListVertical> {
                                         color: Colors.greenAccent,
                                       ),
                                       child: Text(
-                                        'สัตวแพทย์ ชั้น ${model[index]['category']}',
+                                        'ผู้ประกอบวิชาชีพการสัตวแพทย์ชั้น${model[index]['category']}',
                                         style: TextStyle(
                                           color: Colors.white,
                                           fontFamily: 'Kanit',

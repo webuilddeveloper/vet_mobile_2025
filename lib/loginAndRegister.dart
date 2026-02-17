@@ -467,9 +467,9 @@ class _LoginAndRegisterPageState extends State<LoginAndRegisterPage> {
         isLogin = true;
       });
       if (response.data['status'] == 'S') {
+        await createStorageApp(model: response.data['objectData'], category: 'guest');
         FocusScope.of(context).unfocus();
         TextEditingController().clear();
-        createStorageApp(model: response.data['objectData'], category: 'guest');
 
         Navigator.pushReplacement(
           context,
