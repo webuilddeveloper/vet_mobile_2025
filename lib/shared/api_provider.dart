@@ -19,7 +19,7 @@ const versionNumber = 494;
 // const server = "https://782f-125-24-174-253.ap.ngrok.io/";
 // const server = 'http://122.155.223.63/td-vet-api/';
 const server = 'https://vet.we-builds.com/vet-api/';
-const serverWeb = 'http://vetweb.we-builds.com/vet-api/';
+const serverWeb = 'https://vetcouncil.or.th/vet-api/';
 
 const serverUpload = 'https://vet.we-builds.com/vet-document/upload';
 const serverOTP = 'https://portal-otp.smsmkt.com/api/';
