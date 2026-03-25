@@ -12,8 +12,8 @@ import 'dart:io';
 
 import 'package:vet/shared/line.dart';
 
-const versionName = '4.9.4';
-const versionNumber = 494;
+const versionName = '4.9.5';
+const versionNumber = 495;
 
 // flutter build apk --build-name=2.5.3 --build-number=17
 // const server = "https://782f-125-24-174-253.ap.ngrok.io/";
