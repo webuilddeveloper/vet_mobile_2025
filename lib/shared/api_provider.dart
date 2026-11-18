@@ -454,10 +454,9 @@ Future<dynamic> postDioMessage(String url, dynamic criteria) async {
     criteria = {'profileCode': profileCode, ...criteria};
   }
   Dio dio = new Dio();
-  print('-----dio criteria-----$criteria');
-  print('-----dio criteria-----$url');
+
   var response = await dio.post(url, data: criteria);
-  print('-----dio message-----${response.data}');
+
   return Future.value(response.data['objectData']);
 }
 
@@ -555,6 +554,8 @@ Future<void> postTrackClick(String button) async {
   // print('-----dio criteria-----' + criteria.toString());
   Dio dio = new Dio();
   dio.post("${server}trackClick/create", data: criteria);
+  print('-----dio criteria-----' + criteria.toString());
+  print('-----dio criteria-----' + "${server}trackClick/create");
 }
 
 const splashReadApi = '${server}m/splash/read';

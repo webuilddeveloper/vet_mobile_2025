@@ -3,6 +3,10 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:vet/pages/exam_registration/exam_registration_list.dart';
+import 'package:vet/pages/hospital/hospital_search.dart';
+import 'package:vet/pages/jobs/job_list.dart';
+import 'package:vet/component/service_menu_image.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
@@ -111,6 +115,23 @@ class _HomePageV2State extends State<HomePageV2> with WidgetsBindingObserver {
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
+
+  List<Map<String, dynamic>> services = [
+    {
+      "code": "1",
+      "title": "ข่าวประชาสัมพันธ์",
+      "image": "assets/images/01.png",
+    },
+    {
+      "code": "2",
+      "title": "ประกาศรับสมัครงาน",
+      "image": "assets/images/02.png",
+    },
+    {"code": "3", "title": "ดาวโหลดเอกสาร", "image": "assets/images/03.png"},
+    {"code": "4", "title": "สมัครสอบ", "image": "assets/images/04.png"},
+    {"code": "5", "title": "เกี่ยวกับเรา", "image": "assets/images/05.jpg"},
+    {"code": "6", "title": "เบอร์ติดต่อ", "image": "assets/images/06.png"},
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -235,36 +256,173 @@ class _HomePageV2State extends State<HomePageV2> with WidgetsBindingObserver {
                 ),
                 SizedBox(height: 15),
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 20),
-                  child: Text(
-                    'บริการทั้งหมด',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                  padding: EdgeInsets.symmetric(horizontal: 12),
+                  child: Column(
+                    children: [
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          'บริการทั้งหมด',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15,
+                          ),
+                        ),
+                      ),
+
+                      // GridView.builder(
+                      //   shrinkWrap: true,
+                      //   physics: const NeverScrollableScrollPhysics(),
+                      //   padding: const EdgeInsets.only(top: 16, bottom: 16),
+                      //   itemCount: services.length,
+                      //   gridDelegate:
+                      //       const SliverGridDelegateWithFixedCrossAxisCount(
+                      //         crossAxisCount: 3,
+                      //         crossAxisSpacing: 10,
+                      //         mainAxisSpacing: 10,
+                      //       ),
+                      //   itemBuilder: (context, index) {
+                      //     return Material(
+                      //       color: Colors.transparent,
+                      //       child: InkWell(
+                      //         onTap: () {
+                      //           switch (services[index]['code']) {
+                      //             case '1':
+                      //               postTrackClick('ข่าวประชาสัมพันธ์');
+                      //               Navigator.push(
+                      //                 context,
+                      //                 MaterialPageRoute(
+                      //                   builder:
+                      //                       (context) => NewsList(
+                      //                         title: 'ข่าวประชาสัมพันธ์',
+                      //                       ),
+                      //                 ),
+                      //               );
+                      //               break;
+                      //             case '2':
+                      //               postTrackClick('ประกาศรับสมัครงาน');
+                      //               Navigator.push(
+                      //                 context,
+                      //                 MaterialPageRoute(
+                      //                   builder:
+                      //                       (context) => const JobListPage(),
+                      //                 ),
+                      //               );
+                      //               break;
+                      //             case '3':
+                      //               postTrackClick('ดาวโหลดเอกสาร');
+                      //               Navigator.push(
+                      //                 context,
+                      //                 MaterialPageRoute(
+                      //                   builder:
+                      //                       (context) => EbookList(
+                      //                         title: 'ดาวโหลดเอกสาร',
+                      //                       ),
+                      //                 ),
+                      //               );
+                      //               break;
+                      //             case '4':
+                      //               postTrackClick('สมัครสอบ');
+                      //               Navigator.push(
+                      //                 context,
+                      //                 MaterialPageRoute(
+                      //                   builder:
+                      //                       (context) =>
+                      //                           const ExamRegistrationListPage(),
+                      //                 ),
+                      //               );
+                      //               break;
+                      //             case '5':
+                      //               postTrackClick('เกี่ยวกับเรา');
+                      //               Navigator.push(
+                      //                 context,
+                      //                 MaterialPageRoute(
+                      //                   builder:
+                      //                       (context) => AboutUsForm(
+                      //                         model: _futureAboutUs,
+                      //                         title: 'เกี่ยวกับเรา',
+                      //                       ),
+                      //                 ),
+                      //               );
+                      //               break;
+                      //             case '6':
+                      //               postTrackClick('เบอร์ติดต่อ');
+                      //               Navigator.push(
+                      //                 context,
+                      //                 MaterialPageRoute(
+                      //                   builder:
+                      //                       (context) => ContactListCategory(
+                      //                         title: 'เบอร์ติดต่อ',
+                      //                       ),
+                      //                 ),
+                      //               );
+                      //               break;
+                      //             default:
+                      //           }
+                      //         },
+                      //         child: Stack(
+                      //           children: [
+                      //             Positioned.fill(
+                      //               bottom: 35,
+                      //               child: ServiceMenuImage(
+                      //                 assetPath: services[index]['image'],
+                      //               ),
+                      //             ),
+                      //             Positioned(
+                      //               bottom: 0,
+                      //               left: 0,
+                      //               right: 0,
+                      //               child: Container(
+                      //                 height: 35,
+                      //                 color: Color(0xFF2A97B9),
+                      //                 alignment: Alignment.center,
+                      //                 child: Text(
+                      //                   services[index]['title'],
+                      //                   textAlign: TextAlign.center,
+                      //                   style: const TextStyle(
+                      //                     color: Colors.white,
+                      //                     fontSize: 10,
+                      //                     fontWeight: FontWeight.w500,
+                      //                     fontFamily: 'Kanit',
+                      //                   ),
+                      //                   maxLines: 2,
+                      //                   overflow: TextOverflow.ellipsis,
+                      //                 ),
+                      //               ),
+                      //             ),
+                      //           ],
+                      //         ),
+                      //       ),
+                      //     );
+                      //   },
+                      // ),
+                    ],
                   ),
                 ),
-                ...snapshot.data
-                    .map<Widget>((e) => _buildButtonMenu(e))
-                    .toList(),
-                // _buildButtonMenu(snapshot.data[0]),
-                // SizedBox(height: 3),
+                // ...snapshot.data
+                //     .map<Widget>((e) => _buildButtonMenu(e))
+                //     .toList(),
+                _buildButtonMenu(snapshot.data[0]),
+                SizedBox(height: 3),
                 // _buildButtonMenu(snapshot.data[1]),
                 // SizedBox(height: 3),
-                // _buildButtonMenu(snapshot.data[2]),
-                // SizedBox(height: 3),
-                // _buildButtonMenu(snapshot.data[3]),
-                // SizedBox(height: 3),
-                // _buildButtonMenu(snapshot.data[4]),
-                // SizedBox(height: 3),
-                // _buildButtonMenu(snapshot.data[5]),
-                // SizedBox(height: 3),
-                // _buildButtonMenu(snapshot.data[6]),
-                // SizedBox(height: 3),
-                // _buildButtonMenu(snapshot.data[7]),
-                // SizedBox(height: 3),
-                // _buildButtonMenu(snapshot.data[8]),
-                // SizedBox(height: 3),
-                // _buildButtonMenu(snapshot.data[9]),
-                // SizedBox(height: 3),
-                // _buildButtonMenu(snapshot.data[10]),
+                _buildButtonMenu(snapshot.data[2]),
+                SizedBox(height: 3),
+                _buildButtonMenu(snapshot.data[3]),
+                SizedBox(height: 3),
+                _buildButtonMenu(snapshot.data[4]),
+                SizedBox(height: 3),
+                _buildButtonMenu(snapshot.data[5]),
+                SizedBox(height: 3),
+                _buildButtonMenu(snapshot.data[6]),
+                SizedBox(height: 3),
+                _buildButtonMenu(snapshot.data[7]),
+                SizedBox(height: 3),
+                _buildButtonMenu(snapshot.data[8]),
+                SizedBox(height: 3),
+                _buildButtonMenu(snapshot.data[9]),
+                SizedBox(height: 3),
+                _buildButtonMenu(snapshot.data[10]),
                 SizedBox(height: 40),
               ],
             ),
@@ -281,134 +439,182 @@ class _HomePageV2State extends State<HomePageV2> with WidgetsBindingObserver {
   Widget _buildButtonMenu(dynamic model) {
     return Padding(
       padding: const EdgeInsets.only(top: 8),
-      child: Stack(
-        children: <Widget>[
-          InkWell(
-            onTap: () {
-              postTrackClick(model['title']);
-              switch (model['code']) {
-                case 'VERIFY_VET':
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder:
-                          (context) => BuildTeacherIndex(title: model['title']),
-                    ),
-                  );
-                  break;
-                case 'DOWNLOAD':
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => EbookList(title: model['title']),
-                    ),
-                  );
-                  break;
-                case 'OTHERBENFITS':
-                  storage.write(
-                    key: 'isBadgerPrivilege',
-                    value: '0', //_isPrivilegeCount.toString(),
-                  );
-                  setState(() {
-                    _isPrivilegeCount = false;
-                    _addBadger();
-                  });
-                  _callReadPolicyPrivilege(model['title'], _policyMarketing);
-                  break;
-                case 'PRIVILEGESPECIAL':
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder:
-                          (context) =>
-                              PrivilegeSpecialList(title: model['title']),
-                    ),
-                  );
-                  break;
-                case 'NEWS':
-                  storage.write(
-                    key: 'isBadgerNews',
-                    value: '0', //_newsCount.toString(),
-                  );
-                  setState(() {
-                    _isNewsCount = false;
-                    _addBadger();
-                  });
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => NewsList(title: model['title']),
-                    ),
-                  );
-                  break;
-                case 'EVENT':
-                  storage.write(
-                    key: 'isBadgerEvent',
-                    value: '0', //_eventCount.toString(),
-                  );
-                  setState(() {
-                    _isEventCount = false;
-                    _addBadger();
-                  });
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder:
-                          (context) => EventCalendarMain(title: model['title']),
-                    ),
-                  );
-                  break;
-                case 'KNOWLEDGE':
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder:
-                          (context) => KnowledgeList(title: model['title']),
-                    ),
-                  );
-                  break;
-                case 'POLL':
-                  storage.write(
-                    key: 'isBadgerPoll',
-                    value: '0', //_pollCount.toString(),
-                  );
-                  setState(() {
-                    _isPollCount = false;
-                    _addBadger();
-                  });
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => PollList(title: model['title']),
-                    ),
-                  );
-                  break;
-                case 'CONTACT':
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder:
-                          (context) =>
-                              ContactListCategory(title: model['title']),
-                    ),
-                  );
-                  break;
-                case 'ABOUT_US':
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder:
-                          (context) => AboutUsForm(
-                            model: _futureAboutUs,
-                            title: model['title'],
-                          ),
-                    ),
-                  );
-                  break;
-                case 'CHECK_CREDITS':
-                  model['vetCategory'] != '' && model['vetCategory'] != null
-                      ? model['vetCategory'] == 'ทั่วไป'
-                          ? dialogBtn(
+      child: Column(
+        children: [
+          Stack(
+            children: <Widget>[
+              InkWell(
+                onTap: () {
+                  postTrackClick(model['title']);
+                  switch (model['code']) {
+                    case 'VERIFY_VET':
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder:
+                              (context) =>
+                                  BuildTeacherIndex(title: model['title']),
+                        ),
+                      );
+                      break;
+                    case 'VERIFY_HOSPITAL':
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const HospitalSearchPage(),
+                        ),
+                      );
+                      break;
+
+                    case 'DOWNLOAD':
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder:
+                              (context) => EbookList(title: model['title']),
+                        ),
+                      );
+                      break;
+                    case 'OTHERBENFITS':
+                      storage.write(
+                        key: 'isBadgerPrivilege',
+                        value: '0', //_isPrivilegeCount.toString(),
+                      );
+                      setState(() {
+                        _isPrivilegeCount = false;
+                        _addBadger();
+                      });
+                      _callReadPolicyPrivilege(
+                        model['title'],
+                        _policyMarketing,
+                      );
+                      break;
+                    case 'PRIVILEGESPECIAL':
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder:
+                              (context) =>
+                                  PrivilegeSpecialList(title: model['title']),
+                        ),
+                      );
+                      break;
+                    case 'NEWS':
+                      storage.write(
+                        key: 'isBadgerNews',
+                        value: '0', //_newsCount.toString(),
+                      );
+                      setState(() {
+                        _isNewsCount = false;
+                        _addBadger();
+                      });
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => NewsList(title: model['title']),
+                        ),
+                      );
+                      break;
+                    case 'EVENT':
+                      storage.write(
+                        key: 'isBadgerEvent',
+                        value: '0', //_eventCount.toString(),
+                      );
+                      setState(() {
+                        _isEventCount = false;
+                        _addBadger();
+                      });
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder:
+                              (context) =>
+                                  EventCalendarMain(title: model['title']),
+                        ),
+                      );
+                      break;
+                    case 'KNOWLEDGE':
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder:
+                              (context) => KnowledgeList(title: model['title']),
+                        ),
+                      );
+                      break;
+                    case 'POLL':
+                      storage.write(
+                        key: 'isBadgerPoll',
+                        value: '0', //_pollCount.toString(),
+                      );
+                      setState(() {
+                        _isPollCount = false;
+                        _addBadger();
+                      });
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => PollList(title: model['title']),
+                        ),
+                      );
+                      break;
+                    case 'CONTACT':
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder:
+                              (context) =>
+                                  ContactListCategory(title: model['title']),
+                        ),
+                      );
+                      break;
+                    case 'ABOUT_US':
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder:
+                              (context) => AboutUsForm(
+                                model: _futureAboutUs,
+                                title: model['title'],
+                              ),
+                        ),
+                      );
+                      break;
+                    case 'CHECK_CREDITS':
+                      model['vetCategory'] != '' && model['vetCategory'] != null
+                          ? model['vetCategory'] == 'ทั่วไป'
+                              ? dialogBtn(
+                                context,
+                                title: 'แจ้งเตือนจากระบบ',
+                                description:
+                                    'กรุณากรอกข้อมูลสมาชิกให้เรียบร้อยก่อนทำการตรวจสอบหน่วยกิต',
+                                btnOk: "กรอกข้อมูลสมาชิก",
+                                isYesNo: true,
+                                callBack: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder:
+                                          (context) =>
+                                              IdentityVerificationPage(),
+                                    ),
+                                  ).then((value) => _read());
+                                },
+                              )
+                              : Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder:
+                                      (context) => CheckCreditsList(
+                                        keySearch: _idcard,
+                                        yearSelected: '',
+                                        startYear: '',
+                                        endYear: '',
+                                        licenseNumberSub: licenseNumberSub,
+                                      ),
+                                ),
+                              )
+                          : dialogBtn(
                             context,
                             title: 'แจ้งเตือนจากระบบ',
                             description:
@@ -422,92 +628,67 @@ class _HomePageV2State extends State<HomePageV2> with WidgetsBindingObserver {
                                   builder:
                                       (context) => IdentityVerificationPage(),
                                 ),
-                              ).then((value) => _read());
+                              );
                             },
-                          )
-                          : Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder:
-                                  (context) => CheckCreditsList(
-                                    keySearch: _idcard,
-                                    yearSelected: '',
-                                    startYear: '',
-                                    endYear: '',
-                                    licenseNumberSub: licenseNumberSub,
-                                  ),
-                            ),
-                          )
-                      : dialogBtn(
-                        context,
-                        title: 'แจ้งเตือนจากระบบ',
-                        description:
-                            'กรุณากรอกข้อมูลสมาชิกให้เรียบร้อยก่อนทำการตรวจสอบหน่วยกิต',
-                        btnOk: "กรอกข้อมูลสมาชิก",
-                        isYesNo: true,
-                        callBack: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => IdentityVerificationPage(),
-                            ),
                           );
-                        },
-                      );
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //     builder: (context) => BuildCheckCreditsIndex(
-                  //       title: model['title'],
-                  //     ),
-                  //   ),
-                  // );
-                  break;
-                default:
-              }
-            },
-            child:
-                (model['code'] != '')
-                    ? Container(
-                      padding: EdgeInsets.symmetric(horizontal: 10),
-                      width: MediaQuery.of(context).size.width,
-                      height: (MediaQuery.of(context).size.height / 100) * 12,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(5.0),
-                        child: Image.network(
-                          model['imageUrl'],
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                    )
-                    : Container(),
-          ),
-          Positioned(
-            top: 5,
-            right: 15,
-            child:
-                (model['code'] == "NEWS" && _isNewsCount) ||
-                        (model['code'] == "EVENT" && _isEventCount) ||
-                        (model['code'] == "POLL" && _isPollCount) ||
-                        (model['code'] == "OTHERBENFITS" && _isPrivilegeCount)
-                    ? Container(
-                      alignment: Alignment.center,
-                      width: 30,
-                      // height: 90.0,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        color: Colors.red,
-                      ),
-                      child: Text(
-                        'N',
-                        style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
-                      ),
-                    )
-                    : Container(),
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //     builder: (context) => BuildCheckCreditsIndex(
+                      //       title: model['title'],
+                      //     ),
+                      //   ),
+                      // );
+                      break;
+                    default:
+                  }
+                },
+                child:
+                    (model['code'] != '')
+                        ? Container(
+                          padding: EdgeInsets.symmetric(horizontal: 10),
+                          width: MediaQuery.of(context).size.width,
+                          height:
+                              (MediaQuery.of(context).size.height / 100) * 12,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(5.0),
+                            child: Image.network(
+                              model['imageUrl'],
+                              fit: BoxFit.fill,
+                            ),
+                          ),
+                        )
+                        : Container(),
+              ),
+              Positioned(
+                top: 5,
+                right: 15,
+                child:
+                    (model['code'] == "NEWS" && _isNewsCount) ||
+                            (model['code'] == "EVENT" && _isEventCount) ||
+                            (model['code'] == "POLL" && _isPollCount) ||
+                            (model['code'] == "OTHERBENFITS" &&
+                                _isPrivilegeCount)
+                        ? Container(
+                          alignment: Alignment.center,
+                          width: 30,
+                          // height: 90.0,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            color: Colors.red,
+                          ),
+                          child: Text(
+                            'N',
+                            style: TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          ),
+                        )
+                        : Container(),
+              ),
+            ],
           ),
         ],
       ),
@@ -642,6 +823,7 @@ class _HomePageV2State extends State<HomePageV2> with WidgetsBindingObserver {
     }
 
     _futureMenu = postDio('${menuApi}read', {'limit': 100});
+
     _futureBanner = postDio('${mainBannerApi}read', {'limit': 10});
     _futureMainPopUp = postDio('${mainPopupHomeApi}read', {'limit': 10});
     _futureAboutUs = postDio('${aboutUsApi}read', {});

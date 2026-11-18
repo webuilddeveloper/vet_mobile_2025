@@ -9,10 +9,7 @@ import 'package:vet/pages/privilegeSpecial/privilege_special_list_vertical.dart'
 import 'package:vet/shared/api_provider.dart';
 
 class PrivilegeSpecialList extends StatefulWidget {
-  PrivilegeSpecialList({
-    Key? key,
-    this.title,
-  }) : super(key: key);
+  PrivilegeSpecialList({Key? key, this.title}) : super(key: key);
   final String? title;
 
   @override
@@ -34,8 +31,9 @@ class _PrivilegeSpecialList extends State<PrivilegeSpecialList> {
   List<dynamic> listData = [];
   List<dynamic> category = [];
 
-  RefreshController _refreshController =
-      RefreshController(initialRefresh: false);
+  RefreshController _refreshController = RefreshController(
+    initialRefresh: false,
+  );
 
   final storage = new FlutterSecureStorage();
 
@@ -51,8 +49,10 @@ class _PrivilegeSpecialList extends State<PrivilegeSpecialList> {
   }
 
   void _onLoading() async {
-    category =
-        await postDioCategoryWeMartNoAll(privilegeSpecialCategoryReadApi, {});
+    category = await postDioCategoryWeMartNoAll(
+      privilegeSpecialCategoryReadApi,
+      {},
+    );
 
     setState(() {
       _limit = _limit + 10;
@@ -91,64 +91,60 @@ class _PrivilegeSpecialList extends State<PrivilegeSpecialList> {
         ),
         controller: _refreshController,
         onLoading: _onLoading,
-        child: keySearch == ''
-            ? categorySelected == ''
-                ? ListView(
-                    shrinkWrap: true,
-                    physics: ClampingScrollPhysics(), // 2nd
-                    children: [
-                      for (int i = 0; i < category.length; i++)
-                        new ListContentHorizontalPrivilegeSpecial(
-                          code: category[i]['code'],
-                          title: category[i]['title'],
-                          model: postDio(privilegeSpecialReadApi, {
-                            'skip': 0,
-                            'limit': 10,
-                            'category': category[i]['code']
-                          }),
-                          navigationList: () {
-                            setState(() {
-                              keySearch = '';
-                              isMain = false;
-                              categorySelected = category[i]['code'];
-                              categoryTitleSelected = category[i]['title'];
-                            });
-                          },
-                          navigationForm: (
-                            String code,
-                            dynamic model,
-                          ) {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => PrivilegeSpecialForm(
-                                  code: code,
-                                  model: model,
+        child:
+            keySearch == ''
+                ? categorySelected == ''
+                    ? ListView(
+                      shrinkWrap: true,
+                      physics: ClampingScrollPhysics(), // 2nd
+                      children: [
+                        for (int i = 0; i < category.length; i++)
+                          new ListContentHorizontalPrivilegeSpecial(
+                            code: category[i]['code'],
+                            title: category[i]['title'],
+                            model: postDio(privilegeSpecialReadApi, {
+                              'skip': 0,
+                              'limit': 10,
+                              'category': category[i]['code'],
+                            }),
+                            navigationList: () {
+                              setState(() {
+                                keySearch = '';
+                                isMain = false;
+                                categorySelected = category[i]['code'];
+                                categoryTitleSelected = category[i]['title'];
+                              });
+                            },
+                            navigationForm: (String code, dynamic model) {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder:
+                                      (context) => PrivilegeSpecialForm(
+                                        code: code,
+                                        model: model,
+                                      ),
                                 ),
-                              ),
-                            );
-                          },
-                        ),
-                    ],
-                  )
-                : reloadList()
-            : reloadList(),
+                              );
+                            },
+                          ),
+                      ],
+                    )
+                    : reloadList()
+                : reloadList(),
       ),
     );
   }
 
   reloadList() {
     return gridView = new PrivilegeSpecialListVertical(
-      model: postDio(
-        privilegeSpecialReadApi,
-        {
-          'skip': 0,
-          'limit': _limit,
-          'category': categorySelected != '' ? categorySelected : '',
-          "keySearch": keySearch != '' ? keySearch : '',
-          // 'profileCode': profileCode
-        },
-      ),
+      model: postDio(privilegeSpecialReadApi, {
+        'skip': 0,
+        'limit': _limit,
+        'category': categorySelected != '' ? categorySelected : '',
+        "keySearch": keySearch != '' ? keySearch : '',
+        // 'profileCode': profileCode
+      }),
       code: categorySelected,
       title: categoryTitleSelected,
     );
@@ -158,11 +154,7 @@ class _PrivilegeSpecialList extends State<PrivilegeSpecialList> {
     return Container(
       decoration: new BoxDecoration(
         gradient: new LinearGradient(
-          colors: [
-            Color(0xFF2A9EB5),
-            Color(0xFF4D4CCC),
-            Color(0xFF8206C7),
-          ],
+          colors: [Color(0xFF2A9EB5), Color(0xFF4D4CCC), Color(0xFF8206C7)],
         ),
       ),
       padding: EdgeInsets.only(bottom: 10),
@@ -170,9 +162,7 @@ class _PrivilegeSpecialList extends State<PrivilegeSpecialList> {
         // height: 120,
         width: double.infinity,
         child: Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: 15,
-          ),
+          padding: EdgeInsets.symmetric(horizontal: 15),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -325,12 +315,7 @@ class _PrivilegeSpecialList extends State<PrivilegeSpecialList> {
           ),
         ),
         backgroundColor: Colors.white,
-        body: Stack(
-          children: [
-            _buildMain(),
-            _buildFooter(),
-          ],
-        ),
+        body: Stack(children: [_buildMain(), _buildFooter()]),
       ),
     );
   }

@@ -75,42 +75,36 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
-	<key>NSAppleMusicUsageDescription</key>
-	<string>สัตวแพทยสภา Music Usage</string>
-	<key>NSBluetoothAlwaysUsageDescription</key>
-	<string>สัตวแพทยสภา Bluetool Usage</string>
-	<key>NSBluetoothPeripheralUsageDescription</key>
-	<string>สัตวแพทยสภา BluetoothPeripheral</string>
-	<key>NSCalendarsUsageDescription</key>
-	<string>สัตวแพทยสภา Calendar Usage</string>
 	<key>NSCameraUsageDescription</key>
-	<string>เพื่อแสดงรูปภาพโปรไฟล์ของคุณ</string>
-	<key>NSContactsUsageDescription</key>
-	<string>สัตวแพทยสภา ต้องการเข้าถึงข้อมูลการติดต่อของคุณ</string>
-	<key>NSFaceIDUsageDescription</key>
-	<string>สัตวแพทยสภา FaceID Usage</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>เพื่อแสดงตำแหน่งปัจจุบันของคุณ และแนะนำสถานที่น่าสนใจให้กับคุณ</string>
+	<string>เพื่อถ่ายรูปสำหรับโปรไฟล์ของคุณ</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>เพื่อแสดงตำแหน่งปัจจุบันของคุณ และแนะนำสถานที่น่าสนใจให้กับคุณ</string>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>ใช้ตำแหน่งของคุณในแผนที่</string>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>สัตวแพทยสภา Microphone Usage</string>
-	<key>NSMotionUsageDescription</key>
-	<string>สัตวแพทยสภา Motion Usage</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>เพื่อแสดงรูปภาพโปรไฟล์ของคุณ</string>
+	<string>เพื่อบันทึกรูปภาพลงในอัลบั้มของคุณ</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>เพื่อแสดงรูปภาพโปรไฟล์ของคุณ</string>
-	<key>NSRemindersUsageDescription</key>
-	<string>สัตวแพทยสภา Reminder Usage</string>
-	<key>NSSiriUsageDescription</key>
-	<string>สัตวแพทยสภา Siri Usage</string>
-	<key>NSSpeechRecognitionUsageDescription</key>
-	<string>สัตวแพทยสภา Speech Recognition Usage</string>
-	<key>NSVideoSubscriberAccountUsageDescription</key>
-	<string>สัตวแพทยสภา Video Subscribe Usage</string>
+	<string>เพื่อเลือกรูปภาพโปรไฟล์ของคุณ</string>
+	<key>UIApplicationSceneManifest</key>
+	<dict>
+		<key>UIApplicationSupportsMultipleScenes</key>
+		<false/>
+		<key>UISceneConfigurations</key>
+		<dict>
+			<key>UIWindowSceneSessionRoleApplication</key>
+			<array>
+				<dict>
+					<key>UISceneClassName</key>
+					<string>UIWindowScene</string>
+					<key>UISceneConfigurationName</key>
+					<string>flutter</string>
+					<key>UISceneDelegateClassName</key>
+					<string>$(PRODUCT_MODULE_NAME).SceneDelegate</string>
+					<key>UISceneStoryboardFile</key>
+					<string>Main</string>
+				</dict>
+			</array>
+		</dict>
+
+	</dict>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UIBackgroundModes</key>
@@ -120,8 +114,6 @@
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
-	<key>UIMainStoryboardFile</key>
-	<string>Main</string>
 	<key>UIRequiresFullScreen</key>
 	<true/>
 	<key>UISupportedInterfaceOrientations</key>
@@ -141,7 +133,5 @@
 	<false/>
 	<key>io.flutter.embedded_views_preview</key>
 	<true/>
-	<key>kTCCServiceMediaLibrary</key>
-	<string>สัตวแพทยสภา MediaLibrary Usage</string>
 </dict>
 </plist>

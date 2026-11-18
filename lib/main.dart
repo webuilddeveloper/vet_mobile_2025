@@ -34,14 +34,19 @@ Future<void> main() async {
   await Firebase.initializeApp();
   await initializeDateFormatting('th');
 
-  LineSDK.instance.setup('1655337910');
+  await LineSDK.instance.setup('1655337910');
 
   HttpOverrides.global = MyHttpOverrides();
 
+  debugPrint('กำลังเรียก runApp');
   runApp(MyApp());
 
-  // ย้าย initUniLinks มาหลังจาก runApp
-  initAppLinks();
+  // เริ่มรับลิงก์หลังจากหน้าจอแรกสร้างเสร็จ
+  WidgetsBinding.instance.addPostFrameCallback((_) async {
+    debugPrint('เริ่ม initAppLinks');
+    await initAppLinks();
+    debugPrint('จบ initAppLinks');
+  });
 }
 
 Future<void> initAppLinks() async {
